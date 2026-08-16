@@ -7,6 +7,10 @@
 <!-- 파비콘: 위 헤더 로고와 같은 그림 (파비콘은 CSS 변수를 못 읽어 색을 직접 적음) -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cdefs%3E%3CclipPath id='lgBadge'%3E%3Ccircle cx='24' cy='24' r='23'/%3E%3C/clipPath%3E%3C/defs%3E%3Cg clip-path='url(%23lgBadge)'%3E%3Crect width='48' height='48' fill='%23a9dcf5'/%3E%3Crect y='34' width='48' height='14' fill='%232a78d6'/%3E%3Cpath d='M-2 36.6 q5 -2.4 10 0 t10 0 t10 0 t10 0' fill='none' stroke='%23fff' stroke-width='1.4' stroke-linecap='round' opacity='.55'/%3E%3Cg stroke='%23241c14' stroke-width='1.2' stroke-linejoin='round' stroke-linecap='round'%3E%3Ccircle cx='12.5' cy='11' r='4' fill='%23fab219'/%3E%3Crect x='8.5' y='33' width='31' height='4' rx='2' fill='%23fab219'/%3E%3Crect x='17.8' y='24.5' width='12.4' height='9.5' rx='3.2' fill='%23ec5b45'/%3E%3Cpath d='M19.5 27.5 L14.6 32.2' stroke='%23f6cf9c' stroke-width='2.8'/%3E%3Cpath d='M28.5 27 L32 22.3' stroke='%23f6cf9c' stroke-width='2.8'/%3E%3Ccircle cx='24' cy='17' r='9' fill='%23f6cf9c'/%3E%3Cpath d='M15.5 15 A9 9 0 0 1 32.5 15 q-3.4 -2.2 -8.5 -1.4 -5.1 0.8 -8.5 1.4 z' fill='%236b4423'/%3E%3Cellipse cx='20.6' cy='18.7' rx='2.9' ry='3.5' fill='%23fff' stroke-width='1'/%3E%3Cellipse cx='27.4' cy='18.7' rx='2.9' ry='3.5' fill='%23fff' stroke-width='1'/%3E%3Cpath d='M21.9 24.3 q2.1 1.7 4.2 0' fill='none'/%3E%3Cpath d='M11.8 34.4 L35.4 20.6' stroke='%238a5a2b' stroke-width='1.8'/%3E%3Cellipse cx='36.6' cy='19.6' rx='1.6' ry='2.4' transform='rotate(-30 36.6 19.6)' fill='%23e9e4d8'/%3E%3Ccircle cx='14.6' cy='32.4' r='2.1' fill='%23f6cf9c'/%3E%3Ccircle cx='32' cy='22.2' r='2.1' fill='%23f6cf9c'/%3E%3C/g%3E%3Ccircle cx='21.2' cy='18.9' r='1.15' fill='%23241c14'/%3E%3Ccircle cx='26.8' cy='18.9' r='1.15' fill='%23241c14'/%3E%3Ccircle cx='24' cy='24' r='22' fill='none' stroke='%23241c14' stroke-width='1.6'/%3E%3C/g%3E%3C/svg%3E">
 <style>
+  /* ── 토큰 ────────────────────────────────────────────────
+     데이터 색(상태·시리즈·차트 크롬)은 검증된 팔레트라 값을 바꾸지 않는다.
+     아래 --r-*, --sh-*, --wash, --surface-2 만 디자인용으로 추가한 토큰이다.
+     다크 값은 :root[data-theme="dark"] 와 @media 두 곳에 똑같이 적어야 한다. */
   :root {
     color-scheme: light;
     --surface-1:#fcfcfb; --page:#f9f9f7;
@@ -16,6 +20,14 @@
     --good:#0ca30c; --warn:#fab219; --serious:#ec835a; --critical:#d03b3b;
     --good-text:#006300;
     --sea:#dcebf7; --land:#eef0e6;
+
+    --wash:#e3eefa; --surface-2:#f1f0eb;
+    --shape-sea:#cbe0f3; --shape-land:#e9ebdd;
+    --r-lg:20px; --r-md:14px; --r-sm:10px;
+    --sh-1:0 1px 2px rgba(11,11,11,.05), 0 10px 26px -14px rgba(11,11,11,.16);
+    --sh-2:0 2px 6px rgba(11,11,11,.07), 0 20px 44px -20px rgba(11,11,11,.28);
+    --display:"Arial Black","Arial Bold","Helvetica Neue",system-ui,sans-serif;
+    --topbar-h:64px;
   }
   :root[data-theme="dark"] {
     color-scheme: dark;
@@ -25,6 +37,10 @@
     --s-blue:#3987e5; --s-aqua:#199e70; --s-violet:#9085e9;
     --good-text:#0ca30c;
     --sea:#12222f; --land:#232620;
+    --wash:#13212d; --surface-2:#242422;
+    --shape-sea:#16293a; --shape-land:#282c23;
+    --sh-1:0 1px 2px rgba(0,0,0,.5), 0 10px 26px -14px rgba(0,0,0,.8);
+    --sh-2:0 2px 6px rgba(0,0,0,.6), 0 20px 44px -20px rgba(0,0,0,.9);
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
@@ -35,164 +51,278 @@
       --s-blue:#3987e5; --s-aqua:#199e70; --s-violet:#9085e9;
       --good-text:#0ca30c;
       --sea:#12222f; --land:#232620;
+      --wash:#13212d; --surface-2:#242422;
+      --shape-sea:#16293a; --shape-land:#282c23;
+    --shape-sea:#16293a; --shape-land:#282c23;
+      --sh-1:0 1px 2px rgba(0,0,0,.5), 0 10px 26px -14px rgba(0,0,0,.8);
+      --sh-2:0 2px 6px rgba(0,0,0,.6), 0 20px 44px -20px rgba(0,0,0,.9);
     }
   }
+
   * { box-sizing:border-box; margin:0; padding:0; }
   body {
     font-family: system-ui, -apple-system, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
-    background:var(--page); color:var(--ink-1); line-height:1.55;
+    background-color:var(--page); color:var(--ink-1); line-height:1.55;
+    background-image:linear-gradient(180deg, var(--wash) 0, transparent 560px);
+    background-repeat:no-repeat;
+    min-height:100vh;
     -webkit-font-smoothing:antialiased;
   }
-  .wrap { max-width:1080px; margin:0 auto; padding:20px 16px 64px; }
-  header.top { display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; padding:8px 0 4px; }
-  header.top .brand { display:flex; align-items:center; gap:9px; }
-  header.top .logo { width:38px; height:38px; display:block; flex-shrink:0; }
-  header.top h1 {
-    font-family:"Arial Black","Arial Bold","Helvetica Neue",system-ui,sans-serif;
-    font-size:27px; font-weight:900; letter-spacing:-0.03em;
+  .wrap { max-width:1120px; margin:0 auto; padding:0 18px 80px; }
+
+  /* ── 상단 고정 바 ───────────────────────────────────── */
+  .topbar {
+    position:sticky; top:0; z-index:60;
+    background:var(--page);
+    background:color-mix(in srgb, var(--page) 76%, transparent);
+    backdrop-filter:saturate(1.7) blur(14px); -webkit-backdrop-filter:saturate(1.7) blur(14px);
+    border-bottom:1px solid var(--border);
   }
-  header.top .sub { color:var(--ink-2); font-size:13px; }
-  header.top .spacer { flex:1; }
+  .topbar .inner {
+    max-width:1120px; margin:0 auto; padding:11px 18px;
+    display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+  }
+  .brand { display:flex; align-items:center; gap:10px; }
+  .logo { width:40px; height:40px; display:block; flex-shrink:0; }
+  .topbar h1 {
+    font-family:var(--display);
+    font-size:24px; font-weight:900; letter-spacing:-0.035em; line-height:1;
+  }
+  .topbar .sub { color:var(--ink-2); font-size:13px; }
+  .topbar .spacer { flex:1; }
+  @media (max-width:900px){ .topbar .sub { display:none; } }
+
+  .seg { display:flex; background:var(--surface-2); border:1px solid var(--border); border-radius:999px; padding:3px; gap:2px; }
+  .seg button {
+    border:0; background:transparent; color:var(--ink-2); font-size:13.5px; font-weight:600;
+    padding:7px 15px; border-radius:999px; cursor:pointer;
+    transition:background .18s ease, color .18s ease;
+  }
+  .seg button[aria-pressed="true"] { background:var(--ink-1); color:var(--page); }
+  .seg button:hover:not([aria-pressed="true"]) { color:var(--ink-1); }
+
   .chip-btn {
     border:1px solid var(--border); background:var(--surface-1); color:var(--ink-2);
-    border-radius:8px; padding:5px 11px; font-size:12.5px; cursor:pointer;
+    border-radius:999px; padding:7px 14px; font-size:12.5px; font-weight:500; cursor:pointer;
+    transition:color .18s ease, border-color .18s ease, background .18s ease;
   }
-  .chip-btn:hover { color:var(--ink-1); }
-  .updated { font-size:12px; color:var(--ink-3); }
+  .chip-btn:hover { color:var(--ink-1); border-color:var(--ink-3); }
 
-  .filters { display:flex; gap:8px; align-items:center; margin:16px 0 14px; flex-wrap:wrap; }
-  .seg { display:flex; background:var(--surface-1); border:1px solid var(--border); border-radius:10px; padding:3px; gap:2px; }
-  .seg button {
-    border:0; background:transparent; color:var(--ink-2); font-size:13.5px; font-weight:500;
-    padding:6px 14px; border-radius:7px; cursor:pointer;
-  }
-  .seg button[aria-pressed="true"] { background:var(--s-blue); color:#fff; font-weight:600; }
-  .seg button:hover:not([aria-pressed="true"]) { color:var(--ink-1); }
-  .filters .hint { font-size:12.5px; color:var(--ink-3); }
+  .metaline { display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding:16px 2px 0; }
+  .metaline .hint { font-size:12.5px; color:var(--ink-3); }
+  .metaline .spacer { flex:1; }
+  .updated { font-size:12px; color:var(--ink-3); font-variant-numeric:tabular-nums; }
 
   .banner {
     border:1px solid var(--border); border-left:4px solid var(--critical);
-    background:var(--surface-1); border-radius:10px; padding:12px 16px; margin:12px 0;
-    font-size:14px; display:none;
+    background:var(--surface-1); border-radius:var(--r-md); padding:13px 17px; margin:14px 0;
+    font-size:14px; display:none; box-shadow:var(--sh-1);
   }
   .banner.show { display:block; }
   .banner button { margin-left:10px; }
 
-  .loading { color:var(--ink-3); font-size:14px; padding:32px 0; text-align:center; }
+  .loading { color:var(--ink-3); font-size:14px; padding:64px 0; text-align:center; }
   .fade { opacity:.45; pointer-events:none; transition:opacity .2s; }
 
-  .hero-row { display:grid; grid-template-columns: 1.1fr 1.6fr; gap:14px; margin-bottom:14px; }
-  @media (max-width:820px){ .hero-row { grid-template-columns:1fr; } }
+  @keyframes rise { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
+  #app { animation:rise .5s cubic-bezier(.2,.7,.3,1) both; }
+
+  /* ── 카드 공통 ─────────────────────────────────────── */
   .card {
-    background:var(--surface-1); border:1px solid var(--border); border-radius:14px; padding:18px;
+    background:var(--surface-1); border:1px solid var(--border);
+    border-radius:var(--r-lg); padding:20px; box-shadow:var(--sh-1);
   }
-  .hero .label { font-size:13px; color:var(--ink-2); margin-bottom:6px; }
-  .hero .value { font-size:48px; font-weight:650; letter-spacing:-0.02em; line-height:1.1; }
-  .hero .score-line { display:flex; align-items:center; gap:10px; margin-top:8px; flex-wrap:wrap; }
-  .hero .why { margin-top:10px; font-size:13.5px; color:var(--ink-2); }
+
+  /* ── 히어로 + 지도 ─────────────────────────────────── */
+  .hero-row { display:grid; grid-template-columns:1fr 1.3fr; gap:16px; margin:14px 0 34px; }
+  @media (max-width:860px){ .hero-row { grid-template-columns:1fr; } }
+
+  .eyebrow {
+    font-family:var(--display); font-size:11px; letter-spacing:.1em;
+    color:var(--ink-3); text-transform:uppercase;
+  }
+  .hero { position:relative; overflow:hidden; display:flex; flex-direction:column; justify-content:center; }
+  .hero::before {
+    content:""; position:absolute; inset:0; background:var(--tint,transparent);
+    opacity:.08; pointer-events:none;
+  }
+  .hero > * { position:relative; }
+  .hero .value {
+    font-size:clamp(38px,5vw,56px); font-weight:700; letter-spacing:-0.04em; line-height:1.02;
+    margin-top:8px;
+  }
+  .hero .score-line { display:flex; align-items:center; gap:14px; margin-top:14px; flex-wrap:wrap; }
+  .hero .big {
+    font-size:clamp(40px,5.4vw,58px); font-weight:700; letter-spacing:-0.045em; line-height:1;
+  }
+  .hero .big small { font-size:.36em; font-weight:600; letter-spacing:0; color:var(--ink-3); margin-left:4px; }
+  .hero .why { margin-top:16px; font-size:13.5px; color:var(--ink-2); line-height:1.65; }
+  .hero .why b { color:var(--ink-1); }
+
   .badge {
-    display:inline-flex; align-items:center; gap:5px; font-size:12.5px; font-weight:600;
-    padding:3px 10px; border-radius:999px; color:#fff;
+    display:inline-flex; align-items:center; gap:5px; font-size:12.5px; font-weight:700;
+    padding:5px 12px; border-radius:999px; color:#fff; letter-spacing:-.01em;
   }
   .badge .ic { font-size:11px; }
   .b-good{background:var(--good);} .b-warn{background:var(--warn);color:#3a2a00;}
   .b-serious{background:var(--serious);color:#401708;} .b-critical{background:var(--critical);}
 
-  /* map */
-  .mapcard { padding:10px 14px 6px; }
-  .mapcard h2 { font-size:13px; color:var(--ink-2); font-weight:600; padding:6px 4px 0; }
+  /* ── 지도 ──────────────────────────────────────────── */
+  .mapcard { padding:14px 16px 8px; }
+  .mapcard h2 { font-size:11px; letter-spacing:.06em; color:var(--ink-3); font-weight:700; padding:2px 4px 8px; }
   .jejumap { width:100%; height:auto; display:block; }
   .spot-dot { cursor:pointer; }
-  .spot-dot circle.core { stroke:var(--surface-1); stroke-width:2; }
+  .spot-dot circle.core { stroke:var(--surface-1); stroke-width:2; transition:r .15s ease; }
+  .spot-dot:hover circle.core { r:11; }
   .spot-dot text { font-size:13px; fill:var(--ink-1); font-weight:600; paint-order:stroke; stroke:var(--surface-1); stroke-width:3; }
-  .spot-dot.sel circle.core { stroke:var(--ink-1); }
+  .spot-dot.sel circle.core { stroke:var(--ink-1); stroke-width:2.5; }
 
-  /* spot cards */
-  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:12px; }
-  .spot-card { cursor:pointer; transition:border-color .15s; }
-  .spot-card:hover, .spot-card:focus-visible { border-color:var(--s-blue); outline:none; }
-  .spot-card.sel { border-color:var(--s-blue); box-shadow:0 0 0 1px var(--s-blue); }
-  .spot-card .head { display:flex; justify-content:space-between; align-items:center; gap:8px; }
-  .spot-card h3 { font-size:16px; font-weight:650; }
-  .spot-card .score { font-size:26px; font-weight:650; }
-  .spot-card .rows { margin-top:10px; display:grid; gap:5px; font-size:13px; color:var(--ink-2); }
+  /* ── 섹션 헤더 ─────────────────────────────────────── */
+  section.block { margin-top:40px; }
+  .sec-head { display:flex; align-items:baseline; gap:10px; }
+  .sec-head .num { font-family:var(--display); font-size:12px; color:var(--s-blue); letter-spacing:.02em; }
+  .sec-head h2 { font-size:clamp(20px,2.4vw,25px); font-weight:700; letter-spacing:-0.025em; }
+  .sec-head .count { font-size:13px; color:var(--ink-3); font-variant-numeric:tabular-nums; }
+  section.block > .desc, .grid-head > .desc { font-size:13.5px; color:var(--ink-2); margin:6px 0 16px; max-width:70ch; }
+  .grid-head { margin:0 0 16px; }
+
+  /* ── 스팟 카드 ─────────────────────────────────────── */
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(252px,1fr)); gap:14px; }
+  .spot-card {
+    cursor:pointer;
+    transition:transform .2s cubic-bezier(.2,.7,.3,1), box-shadow .2s ease, border-color .15s ease;
+  }
+  .spot-card:hover, .spot-card:focus-visible { transform:translateY(-3px); box-shadow:var(--sh-2); outline:none; }
+  .spot-card.sel { border-color:var(--s-blue); box-shadow:0 0 0 1.5px var(--s-blue), var(--sh-1); }
+  .spot-card .head { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
+  .spot-card h3 { font-size:17px; font-weight:700; letter-spacing:-0.02em; }
+  .spot-card .score { font-size:34px; font-weight:700; letter-spacing:-0.045em; line-height:.9; }
+  .spot-card .rows { margin-top:12px; display:grid; gap:5px; font-size:13px; color:var(--ink-2); }
   .spot-card .rows b { color:var(--ink-1); font-weight:600; }
-  .spot-card .flag { margin-top:9px; font-size:12.5px; font-weight:600; }
+  .spot-card .flag { margin-top:10px; font-size:12.5px; font-weight:600; }
   .flag.danger { color:var(--critical); }
   .flag.caution { color:var(--serious); }
-  .spot-card .window { margin-top:8px; font-size:12.5px; color:var(--ink-2); border-top:1px solid var(--grid); padding-top:8px; }
+  .spot-card .window { margin-top:10px; font-size:12.5px; color:var(--ink-2); border-top:1px solid var(--grid); padding-top:9px; }
 
-  section.block { margin-top:26px; }
-  section.block > h2 { font-size:17px; font-weight:700; margin-bottom:4px; letter-spacing:-0.01em; }
-  section.block > .desc { font-size:13px; color:var(--ink-2); margin-bottom:12px; }
+  /* 낮 시간(06~19시) 적합도 미니 막대 */
+  .spark { display:flex; gap:2px; margin-top:12px; }
+  .spark i { flex:1; height:9px; border-radius:2px; }
+  .spark-lab { display:flex; justify-content:space-between; font-size:10.5px; color:var(--ink-3); margin-top:4px; }
 
-  /* detail — 스팟 전환 바. 상세를 보면서 다른 스팟으로 바로 갈아탈 수 있게 상단에 고정한다. */
-  .spot-switch {
-    position:sticky; top:0; z-index:20; background:var(--page);
-    display:flex; gap:6px; overflow-x:auto; overscroll-behavior-x:contain;
-    padding:10px 0; margin-bottom:6px; scrollbar-width:thin;
-  }
-  .spot-switch::after { content:""; flex:0 0 4px; }
-  .spot-switch button {
-    flex:0 0 auto; display:inline-flex; align-items:center; gap:6px; cursor:pointer;
-    border:1px solid var(--border); background:var(--surface-1); color:var(--ink-2);
-    border-radius:999px; padding:6px 13px; font-size:13px; white-space:nowrap;
-  }
-  .spot-switch button:hover { color:var(--ink-1); }
-  .spot-switch button .dot { width:8px; height:8px; border-radius:50%; flex:0 0 auto; }
-  .spot-switch button .sc { font-weight:700; font-variant-numeric:tabular-nums; }
-  .spot-switch button[aria-current="true"] {
-    border-color:var(--s-blue); box-shadow:0 0 0 1px var(--s-blue); color:var(--ink-1); font-weight:600;
-  }
+  /* ── 지형 모식도 ───────────────────────────────────── */
+  .shape { display:block; }
+  .spot-card .shape { width:100%; height:66px; margin-top:12px; border-radius:var(--r-sm); }
 
-  .detail-head { display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:8px; }
-  .detail-head h2 { font-size:19px; font-weight:700; }
+  /* ── 상세 상단 바 + 스팟 드롭다운 ──────────────────── */
+  .detail-bar {
+    position:sticky; top:var(--topbar-h); z-index:30;
+    background:var(--page);
+    background:color-mix(in srgb, var(--page) 88%, transparent);
+    backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+    display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    padding:12px 0 12px; margin-bottom:6px;
+  }
+  .picker { position:relative; }
+  .pk-btn {
+    display:inline-flex; align-items:center; gap:9px; cursor:pointer;
+    border:1px solid var(--border); background:var(--surface-1); color:var(--ink-1);
+    border-radius:999px; padding:9px 16px; font-size:14.5px; font-weight:700;
+    letter-spacing:-0.01em; box-shadow:var(--sh-1);
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .pk-btn:hover { border-color:var(--ink-3); transform:translateY(-1px); }
+  .pk-btn .dot { width:9px; height:9px; border-radius:50%; flex:0 0 auto; }
+  .pk-btn .sc { font-variant-numeric:tabular-nums; color:var(--ink-2); font-weight:700; }
+  .pk-btn .caret { color:var(--ink-3); font-size:10px; margin-left:2px; }
+  .picker.open .pk-btn { border-color:var(--ink-1); }
+  .pk-panel {
+    position:absolute; top:calc(100% + 8px); left:0; z-index:70; display:none;
+    width:330px; max-width:calc(100vw - 40px); max-height:min(62vh,470px); overflow-y:auto;
+    background:var(--surface-1); border:1px solid var(--border);
+    border-radius:var(--r-md); box-shadow:var(--sh-2); padding:6px;
+  }
+  .picker.open .pk-panel { display:block; }
+  .pk-item {
+    display:flex; align-items:center; gap:10px; width:100%; text-align:left; cursor:pointer;
+    border:0; background:transparent; color:var(--ink-1);
+    padding:7px 9px; border-radius:var(--r-sm); font-size:13.5px;
+  }
+  .pk-item:hover, .pk-item:focus-visible { background:var(--surface-2); outline:none; }
+  .pk-item[aria-current="true"] { background:var(--surface-2); font-weight:700; }
+  .pk-item .dot { width:8px; height:8px; border-radius:50%; flex:0 0 auto; }
+  .pk-item .shape { width:40px; height:26px; border-radius:5px; flex:0 0 auto; }
+  .pk-item .nm { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .pk-item .sc { margin-left:auto; font-weight:700; font-variant-numeric:tabular-nums; }
+
+  /* ── 상세 ──────────────────────────────────────────── */
+  .detail-head { display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:12px; }
+  .detail-head h2 { font-size:clamp(20px,2.4vw,25px); font-weight:700; letter-spacing:-0.025em; }
   .detail-head .meta { font-size:13px; color:var(--ink-2); }
-  .route-box { border-left:4px solid var(--s-blue); padding:10px 14px; background:var(--surface-1); border-radius:0 10px 10px 0; border-top:1px solid var(--border); border-right:1px solid var(--border); border-bottom:1px solid var(--border); font-size:14px; margin:10px 0 16px; }
-  .route-box b { font-weight:650; }
+  .route-box {
+    border:1px solid var(--border); border-left:4px solid var(--s-blue);
+    background:var(--surface-1); border-radius:var(--r-md);
+    padding:14px 18px; font-size:14px; line-height:1.65; margin:0 0 18px; box-shadow:var(--sh-1);
+  }
+  .route-box b { font-weight:700; }
   .route-box.danger { border-left-color:var(--critical); }
-  .chart-card { margin-bottom:12px; padding:14px 16px 10px; }
-  .chart-card h3 { font-size:13px; font-weight:600; color:var(--ink-2); margin-bottom:8px; display:flex; align-items:center; gap:8px; }
-  .key { display:inline-flex; align-items:center; gap:5px; font-size:12px; color:var(--ink-2); font-weight:500; }
+
+  .chart-card { margin-bottom:14px; padding:16px 18px 12px; }
+  .chart-card h3 { font-size:12.5px; font-weight:700; color:var(--ink-2); margin-bottom:12px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .key { display:inline-flex; align-items:center; gap:5px; font-size:11.5px; color:var(--ink-3); font-weight:500; }
   .key .sw { width:14px; height:3px; border-radius:2px; display:inline-block; }
   .chart-svg { width:100%; height:auto; display:block; }
   .cellrow { display:flex; gap:2px; }
-  .tl-cell { flex:1; height:26px; border-radius:3px; cursor:pointer; }
+  .tl-cell { flex:1; height:30px; border-radius:3px; cursor:pointer; transition:opacity .12s ease; }
+  .tl-cell:hover { opacity:.72; }
   .tl-cell:focus-visible { outline:2px solid var(--ink-1); }
-  .tl-labels { display:flex; font-size:11px; color:var(--ink-3); margin-top:4px; }
+  .tl-labels { display:flex; font-size:11px; color:var(--ink-3); margin-top:5px; }
   .tl-labels span { flex:1; text-align:left; }
 
   .tbl-wrap { overflow-x:auto; }
   table.data { border-collapse:collapse; width:100%; font-size:12.5px; }
-  table.data th, table.data td { padding:5px 9px; text-align:right; border-bottom:1px solid var(--grid); font-variant-numeric:tabular-nums; white-space:nowrap; }
-  table.data th { color:var(--ink-2); font-weight:600; position:sticky; top:0; background:var(--surface-1); }
+  table.data th, table.data td { padding:6px 10px; text-align:right; border-bottom:1px solid var(--grid); font-variant-numeric:tabular-nums; white-space:nowrap; }
+  table.data th { color:var(--ink-2); font-weight:700; position:sticky; top:0; background:var(--surface-1); }
+  table.data tbody tr:hover { background:var(--surface-2); }
   table.data td:first-child, table.data th:first-child { text-align:left; }
 
-  /* downwind */
-  .run-card { display:flex; align-items:center; gap:14px; justify-content:space-between; flex-wrap:wrap; }
-  .run-card .info h3 { font-size:15px; font-weight:650; }
-  .run-card .info p { font-size:13px; color:var(--ink-2); margin-top:2px; }
-  .run-grid { display:grid; gap:10px; }
+  /* ── 다운윈드 ──────────────────────────────────────── */
+  .run-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:14px; }
+  .run-card { display:flex; align-items:flex-start; gap:14px; justify-content:space-between; flex-wrap:wrap; }
+  .run-card .info h3 { font-size:16px; font-weight:700; letter-spacing:-0.02em; }
+  .run-card .info p { font-size:13px; color:var(--ink-2); margin-top:4px; }
+  .run-card .why { width:100%; font-size:12.5px; color:var(--ink-2); line-height:1.6; border-top:1px solid var(--grid); padding-top:10px; }
+  .run-card .why b { color:var(--ink-1); font-weight:700; }
 
-  .safety { margin-top:26px; font-size:13px; color:var(--ink-2); border-top:1px solid var(--grid); padding-top:14px; }
-  .safety b { color:var(--ink-1); }
-  footer.src { margin-top:10px; font-size:12px; color:var(--ink-3); }
-
-  .tooltip {
-    position:fixed; z-index:50; pointer-events:none; display:none;
-    background:var(--surface-1); border:1px solid var(--border); border-radius:9px;
-    padding:8px 11px; font-size:12.5px; box-shadow:0 4px 16px rgba(0,0,0,.14); min-width:130px;
+  /* ── 안전 수칙·푸터 ────────────────────────────────── */
+  .safety {
+    margin-top:40px; font-size:13.5px; color:var(--ink-2); line-height:1.75;
+    background:var(--surface-1); border:1px solid var(--border); border-radius:var(--r-lg);
+    padding:20px 22px; box-shadow:var(--sh-1);
   }
-  .tooltip .tt-title { color:var(--ink-3); font-size:11.5px; margin-bottom:4px; }
+  .safety b { color:var(--ink-1); }
+  .safety .t { display:block; font-family:var(--display); font-size:12px; letter-spacing:.08em; color:var(--critical); margin-bottom:8px; }
+  footer.src { margin-top:16px; font-size:12px; color:var(--ink-3); line-height:1.7; padding:0 2px; }
+
+  /* ── 툴팁 ──────────────────────────────────────────── */
+  .tooltip {
+    position:fixed; z-index:80; pointer-events:none; display:none;
+    background:var(--surface-1); border:1px solid var(--border); border-radius:var(--r-sm);
+    padding:9px 12px; font-size:12.5px; box-shadow:var(--sh-2); min-width:140px;
+  }
+  .tooltip .tt-title { color:var(--ink-3); font-size:11.5px; margin-bottom:5px; }
   .tooltip .tt-row { display:flex; align-items:center; gap:6px; }
   .tooltip .tt-row .sw { width:11px; height:3px; border-radius:2px; }
-  .tooltip .tt-row .v { font-weight:650; color:var(--ink-1); }
+  .tooltip .tt-row .v { font-weight:700; color:var(--ink-1); font-variant-numeric:tabular-nums; }
   .tooltip .tt-row .k { color:var(--ink-2); }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation:none !important; transition:none !important; }
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header class="top">
+<div class="topbar">
+  <div class="inner">
     <span class="brand">
       <svg class="logo" viewBox="0 0 48 48" role="img" aria-label="WHAT-SUP 로고">
         <defs><clipPath id="lgBadge"><circle cx="24" cy="24" r="23"/></clipPath></defs>
@@ -225,14 +355,17 @@
     </span>
     <span class="sub">지금 어디서, 언제, 어느 방향으로 패들보드 탈까</span>
     <span class="spacer"></span>
-    <span class="updated" id="updated"></span>
+    <div class="seg" id="daySeg" role="group" aria-label="시점 선택"></div>
     <button class="chip-btn" id="refreshBtn">새로고침</button>
     <button class="chip-btn" id="themeBtn" title="테마 전환">테마: 자동</button>
-  </header>
+  </div>
+</div>
 
-  <div class="filters" role="group" aria-label="시점 선택">
-    <div class="seg" id="daySeg"></div>
+<div class="wrap">
+  <div class="metaline">
     <span class="hint" id="segHint"></span>
+    <span class="spacer"></span>
+    <span class="updated" id="updated"></span>
   </div>
 
   <div class="banner" id="errBanner"></div>
@@ -247,10 +380,20 @@
       </div>
     </div>
 
+    <div class="grid-head">
+      <div class="sec-head"><span class="num">01</span><h2>스팟</h2><span class="count" id="spotCount"></span></div>
+      <p class="desc">점수가 높은 곳부터. 카드를 누르면 아래에서 시간대별 상세를 볼 수 있어요.</p>
+    </div>
     <div class="grid" id="spotGrid"></div>
 
     <section class="block" id="detailSec">
-      <div class="spot-switch" id="spotSwitch" aria-label="스팟 바꾸기"></div>
+      <div class="sec-head"><span class="num">02</span><h2>상세</h2></div>
+      <div class="detail-bar">
+        <div class="picker" id="spotPicker">
+          <button class="pk-btn" id="pkBtn" aria-haspopup="listbox" aria-expanded="false"></button>
+          <div class="pk-panel" id="pkPanel" role="listbox" aria-label="스팟 고르기"></div>
+        </div>
+      </div>
       <div class="detail-head" id="detailHead"></div>
       <div class="route-box" id="routeBox"></div>
       <div id="charts"></div>
@@ -259,12 +402,13 @@
     </section>
 
     <section class="block">
-      <h2>다운윈드 항로</h2>
-      <p class="desc">일정한 옆바람·뒷바람(5~10m/s)이 불 때만 열리는 편도 코스예요. 반드시 2인 이상, 차량 셔틀과 동행 보트/연락 수단을 준비하세요.</p>
+      <div class="sec-head"><span class="num">03</span><h2>다운윈드 항로</h2></div>
+      <p class="desc">일정한 옆바람·뒷바람(5~10m/s)이 불 때만 열리는 편도 코스예요. 제주에서 이 조건이 맞는 날은 드물어서 대부분은 "대기"로 표시돼요. 반드시 2인 이상, 차량 셔틀과 동행 보트·연락 수단을 준비하세요.</p>
       <div class="run-grid" id="runGrid"></div>
     </section>
 
     <div class="safety">
+      <span class="t">SAFETY</span>
       <b>안전 수칙</b> — 리쉬와 구명조끼(부력보조복)는 항상 착용 · 이안풍(육지→바다 바람) 경보 시 출수 금지 · 혼자 타지 않기 · 출수 전 국립해양조사원 조석과 해경 기상특보 확인 · 긴급 시 해양경찰 <b>122</b>
     </div>
     <footer class="src">
@@ -315,14 +459,15 @@ const SPOTS = [
     lv:"초급", desc:"협재 옆, 좀 더 한적한 분위기. 비양도 뷰.",
     left:{name:"월령리 방면", dir:220}, right:{name:"협재 해변", dir:30},
     tide:"간조 때 매우 얕음 — 중조~만조 추천", lx:10, ly:5 },
-  { id:"wollyeong",name:"월령해변",  lat:33.3733, lon:126.2265, facing:285, mx:89,  my:222,
-    lv:"초급~중급", desc:"선인장 자생지 앞 암반·모래 해안. 트여 있어 파도가 그대로 들어와요.",
-    left:{name:"월령포구·신창 방면", dir:210}, right:{name:"금능 방면", dir:25},
-    tide:"간조 때 암반 노출 주의", lx:-8, ly:-2, anchor:"end" },
-  { id:"wollyeongpo",name:"월령포구", lat:33.3684, lon:126.2178, facing:280, mx:86,  my:232,
+  // 월령 좌표는 OSM 지명 노드 기준 (월령포구 / 월령선인장자생지). 종전 값은 1.4km 내륙이었다.
+  { id:"wollyeongpo",name:"월령포구", lat:33.3796, lon:126.2143, facing:280, mx:89,  my:222,
     lv:"초급", desc:"선인장 마을의 작은 포구. 방파제 안쪽은 파도가 거의 없어요.",
-    left:{name:"신창 풍차해안 방면", dir:205}, right:{name:"월령해변 방면", dir:30},
-    tide:"간조 때 포구 수심 얕음 — 중조 이상 추천", lx:-8, ly:12, anchor:"end", shelter:0.55 },
+    left:{name:"신창 풍차해안 방면", dir:205}, right:{name:"금능 방면", dir:30},
+    tide:"간조 때 포구 수심 얕음 — 중조 이상 추천", lx:-8, ly:-2, anchor:"end", shelter:0.55 },
+  { id:"wollyeong",name:"월령해변",  lat:33.3775, lon:126.2147, facing:285, mx:86,  my:232,
+    lv:"초급~중급", desc:"선인장 자생지 앞 암반·모래 해안. 트여 있어 파도가 그대로 들어와요.",
+    left:{name:"신창 방면", dir:210}, right:{name:"월령포구 방면", dir:25},
+    tide:"간조 때 암반 노출 주의", lx:-8, ly:12, anchor:"end" },
   { id:"panpo",   name:"판포",       lat:33.3475, lon:126.1836, facing:290, mx:72,  my:258,
     lv:"초급", desc:"방파제로 둘러싸인 포구 안이 천연 수영장처럼 잔잔 — SUP·스노클링 명소.",
     left:{name:"신창 풍차해안", dir:200}, right:{name:"월령·금능 방면", dir:30},
@@ -348,6 +493,31 @@ const SPOTS = [
     left:{name:"용수리 방면", dir:200}, right:{name:"판포 방면", dir:20},
     tide:"간조 때 암반 노출 주의", lx:-8, ly:12, anchor:"end", shelter:0.6 },
 ];
+
+/* ---------------- 지형 도형 ----------------
+   OpenStreetMap 해안선(natural=coastline)에서 뽑은 실제 모양이다.
+   제주 해안선 전체를 닫힌 고리로 이은 뒤 스팟마다 700m 정사각 창으로 폴리곤 클리핑해
+   0~100 좌표로 옮겼다. land = 육지 폴리곤(창 밖으로 나가는 변은 창 테두리를 따른다).
+   스팟이 포구 안쪽이라 해안선에서 150m 넘게 떨어져 있으면 창을 해안선 위로 당겼다.
+   갱신하려면 Overpass에서 해안선을 다시 받아 같은 방식으로 변환해 이 상수를 덮어쓴다. */
+const SHAPES = {
+  iho:{"land":["M200.0 73.0 L200.0 0.0 L139.5 0.0 L137.5 3.0 L133.9 9.5 L130.4 15.7 L128.6 18.4 L126.6 20.5 L124.5 21.8 L122.0 22.5 L119.7 22.1 L116.6 28.3 L112.2 35.0 L109.7 38.5 L107.9 41.0 L105.8 43.5 L104.7 44.9 L103.2 46.7 L99.4 50.2 L94.2 54.2 L90.0 57.0 L85.9 59.8 L78.0 63.4 L71.8 65.1 L62.8 66.4 L55.2 67.3 L46.7 66.1 L41.8 64.1 L37.5 61.7 L33.5 59.3 L34.9 51.0 L36.4 41.9 L37.2 42.1 L37.3 41.4 L36.5 41.1 L36.9 39.1 L37.8 39.3 L38.0 38.6 L37.1 38.4 L37.7 35.6 L39.9 33.9 L39.3 32.7 L36.6 34.5 L35.9 38.1 L31.7 36.7 L31.4 37.6 L34.6 38.6 L30.7 60.3 L25.9 61.8 L20.6 56.3 L22.5 54.6 L23.8 56.4 L24.5 56.0 L23.3 54.2 L25.7 52.1 L26.2 52.1 L27.3 52.0 L27.6 51.5 L27.3 50.6 L26.7 50.2 L26.0 49.8 L25.3 49.8 L24.6 50.0 L18.5 44.9 L24.2 34.9 L28.3 37.4 L28.7 36.6 L24.8 34.1 L29.5 29.8 L34.7 25.5 L35.3 25.9 L36.7 25.4 L37.8 24.3 L38.1 22.8 L37.8 21.4 L35.9 20.9 L34.8 21.3 L24.0 29.9 L22.0 30.4 L20.4 32.4 L17.4 37.6 L15.5 41.3 L13.2 44.8 L12.1 45.6 L8.8 43.3 L1.6 37.9 L0.0 36.8 L0.0 73.0 Z"]},
+  hamdeok:{"land":["M0.0 0.0 L0.0 73.0 L200.0 73.0 L200.0 45.4 L183.4 34.4 L169.9 30.2 L148.5 22.7 L139.1 35.1 L130.0 38.6 L125.2 41.9 L119.1 43.3 L112.3 41.2 L105.7 37.0 L102.3 34.1 L100.1 30.3 L102.5 29.1 L105.6 22.4 L95.5 14.5 L96.5 11.2 L96.4 9.4 L98.3 8.4 L98.9 6.4 L100.9 5.4 L102.6 4.3 L102.7 2.5 L102.5 1.4 L101.7 0.7 L100.8 0.4 L99.3 1.3 L98.8 0.3 L98.2 0.0 L88.0 0.0 L86.2 0.4 L80.2 5.6 L78.6 8.7 L78.5 12.8 L77.5 15.1 L78.1 17.6 L81.9 22.2 L80.2 24.8 L78.3 26.4 L77.5 27.0 L76.1 27.8 L74.4 28.9 L72.4 29.7 L70.0 30.5 L68.5 30.2 L67.8 27.8 L66.2 28.0 L63.4 30.9 L59.9 28.7 L57.8 27.4 L53.4 30.5 L51.7 30.0 L50.5 31.9 L18.9 17.1 L11.9 10.9 L4.1 0.0 Z"]},
+  hyeopjae:{"land":["M200.0 73.0 L200.0 53.5 L198.9 53.9 L196.7 54.0 L193.8 52.9 L191.6 51.6 L185.6 50.7 L180.1 52.7 L178.5 55.2 L176.5 53.7 L175.4 51.0 L172.8 51.5 L170.5 54.0 L168.0 52.9 L164.5 51.0 L161.9 54.0 L158.8 57.0 L153.7 58.0 L150.4 60.7 L143.1 57.7 L138.8 56.6 L137.9 54.4 L134.7 49.0 L132.7 43.4 L130.0 41.8 L126.6 40.7 L121.8 42.9 L115.8 39.8 L108.7 36.2 L104.0 31.2 L99.4 24.8 L103.3 19.5 L106.2 16.6 L109.1 16.3 L105.9 12.4 L103.3 12.3 L100.2 15.4 L99.5 14.4 L99.5 10.1 L95.0 10.5 L92.2 6.9 L90.1 4.9 L87.7 3.0 L85.3 0.4 L84.0 0.0 L72.3 0.0 L71.6 1.4 L69.4 3.8 L66.3 6.8 L62.6 9.0 L60.5 7.5 L58.2 4.4 L54.0 3.7 L49.2 4.4 L44.8 3.0 L41.1 0.9 L40.3 0.0 L0.0 0.0 L0.0 73.0 Z"]},
+  gwakji:{"land":["M200.0 73.0 L200.0 0.0 L152.9 0.0 L149.8 4.2 L141.8 14.9 L137.6 20.2 L127.7 21.4 L118.0 22.4 L105.7 24.8 L93.6 25.1 L79.7 15.8 L65.5 16.0 L60.4 16.4 L51.8 16.9 L45.3 18.1 L31.6 26.0 L24.9 28.6 L17.0 27.6 L14.7 28.7 L8.5 29.3 L4.7 26.6 L0.0 23.4 L0.0 73.0 Z"]},
+  woljeong:{"land":["M0.0 0.0 L0.0 73.0 L200.0 73.0 L200.0 32.0 L190.2 35.3 L184.1 35.9 L180.4 42.1 L165.7 46.9 L157.0 49.2 L137.9 49.1 L128.2 48.1 L119.8 45.0 L105.6 38.3 L96.9 33.4 L89.4 25.8 L86.8 22.0 L85.1 18.5 L94.1 15.0 L96.0 13.8 L100.6 8.5 L99.7 7.8 L95.2 13.3 L93.7 13.6 L82.7 17.7 L76.3 9.7 L75.1 10.4 L75.5 11.0 L80.1 17.3 L79.8 17.8 L81.0 19.5 L81.3 21.9 L75.5 28.2 L75.0 28.0 L74.4 28.6 L73.9 27.6 L71.6 23.9 L70.6 21.9 L70.2 20.2 L69.6 17.8 L69.5 14.0 L70.1 14.0 L69.9 12.5 L69.4 11.4 L69.3 9.9 L69.1 6.5 L71.2 4.7 L73.2 8.1 L74.2 7.6 L72.2 3.8 L78.8 0.0 Z"]},
+  jungmun:{"land":["M0.0 73.0 L200.0 73.0 L200.0 0.0 L194.8 0.0 L192.2 2.8 L187.9 7.7 L185.0 16.1 L181.4 24.1 L176.4 30.3 L174.7 32.3 L171.2 33.0 L162.3 35.9 L145.3 39.8 L138.4 42.2 L130.0 45.2 L126.4 47.2 L110.9 52.1 L98.9 57.3 L86.2 59.1 L80.3 60.0 L61.2 62.8 L53.5 63.7 L49.7 58.7 L47.9 53.7 L42.8 43.0 L34.9 40.5 L34.6 39.1 L28.1 37.8 L26.7 37.1 L24.8 35.7 L23.9 33.3 L23.4 30.3 L22.1 28.9 L11.0 23.8 L4.0 19.7 L0.0 19.1 Z"]},
+  pyoseon:{"land":["M200.0 73.0 L200.0 0.0 L59.8 0.0 L61.9 1.5 L63.8 0.0 L77.3 0.0 L85.8 4.6 L90.4 3.0 L95.2 3.2 L95.8 2.3 L97.4 0.0 L98.6 0.0 L99.4 2.7 L100.4 6.6 L100.5 9.6 L101.7 9.4 L102.2 10.0 L102.1 11.6 L101.4 12.8 L99.9 13.4 L98.2 13.6 L97.3 15.0 L98.0 18.0 L99.0 19.9 L102.4 21.8 L103.3 21.0 L102.7 19.9 L102.3 18.1 L102.3 16.5 L105.4 16.8 L106.5 19.5 L108.5 20.2 L116.5 30.9 L116.5 31.6 L115.8 32.0 L114.6 31.7 L112.0 31.0 L111.8 31.7 L112.0 33.2 L111.8 34.9 L111.1 36.9 L112.0 37.7 L113.5 37.4 L115.5 37.4 L115.3 39.7 L114.7 40.9 L116.8 42.8 L118.7 42.7 L120.3 41.5 L120.9 38.9 L122.7 38.7 L124.8 41.0 L131.7 48.7 L137.2 60.6 L142.0 63.5 L144.2 64.2 L150.9 66.6 L153.6 68.1 L157.6 73.0 Z"]},
+  geumneung:{"land":["M200.0 73.0 L200.0 52.7 L198.2 51.2 L196.2 47.8 L192.0 46.8 L187.2 47.1 L183.0 45.3 L179.4 42.9 L176.9 39.2 L174.3 37.1 L172.0 37.1 L167.8 38.2 L165.5 40.3 L160.6 39.8 L157.4 37.1 L154.9 36.3 L153.5 37.6 L148.9 36.9 L144.2 32.7 L143.3 31.8 L141.3 29.8 L138.3 27.7 L135.1 30.0 L131.1 29.7 L129.6 27.4 L126.4 25.6 L123.2 28.3 L123.1 31.8 L122.6 35.5 L121.6 40.4 L116.5 44.6 L109.2 46.4 L101.7 46.2 L91.6 41.0 L77.4 34.7 L63.7 23.3 L56.0 13.7 L50.6 3.5 L49.4 0.0 L0.0 0.0 L0.0 73.0 Z"]},
+  wollyeong:{"land":["M0.0 0.0 L0.0 73.0 L200.0 73.0 L200.0 7.6 L198.0 9.6 L194.9 10.4 L190.6 10.7 L187.3 9.8 L184.2 8.1 L181.8 5.9 L180.1 4.2 L180.0 2.2 L180.2 0.0 L174.7 0.0 L175.6 4.1 L175.6 7.7 L177.1 11.8 L178.6 12.2 L178.5 13.5 L177.4 15.1 L177.4 17.0 L176.4 19.3 L176.5 22.7 L176.7 28.6 L175.6 30.5 L175.3 34.3 L172.1 37.8 L171.4 37.1 L159.4 50.0 L153.6 45.1 L152.4 46.4 L158.2 51.4 L154.9 55.6 L149.2 60.7 L145.2 56.8 L144.2 57.8 L144.2 59.1 L143.1 58.6 L141.8 57.2 L146.3 46.6 L148.9 47.3 L150.0 44.8 L147.7 43.8 L149.8 39.1 L150.8 39.4 L151.1 38.9 L152.0 39.3 L154.5 33.9 L152.5 32.9 L153.3 31.0 L166.5 19.2 L165.0 17.4 L151.2 29.2 L139.6 55.3 L134.8 56.9 L130.7 58.3 L128.8 59.0 L124.0 57.3 L122.9 54.6 L123.0 51.1 L121.5 46.2 L119.6 41.7 L117.5 37.4 L117.5 35.9 L119.8 34.8 L117.6 32.0 L117.0 33.8 L113.7 34.7 L113.0 32.9 L111.3 30.3 L108.1 29.4 L109.1 25.7 L106.9 28.2 L100.9 25.5 L99.0 24.6 L96.5 22.7 L93.3 18.3 L94.1 16.9 L93.5 15.1 L91.6 13.7 L93.7 13.0 L96.9 10.4 L97.1 9.2 L94.7 8.5 L90.8 12.7 L88.0 14.1 L85.0 14.6 L86.4 17.6 L84.2 18.6 L82.6 16.4 L81.3 15.6 L79.8 18.3 L78.0 20.2 L75.4 20.0 L74.2 21.2 L72.7 20.4 L71.9 22.1 L69.1 23.2 L68.3 22.4 L67.6 21.3 L64.5 23.8 L61.5 23.8 L57.2 23.8 L52.8 22.8 L49.0 23.8 L45.7 24.6 L38.5 20.6 L35.6 20.0 L32.3 17.8 L30.9 16.9 L29.0 15.8 L29.0 13.2 L30.8 11.0 L28.7 7.3 L27.5 5.3 L28.8 4.1 L28.8 1.5 L27.3 2.5 L26.5 0.9 L24.1 0.0 L22.3 0.6 L20.4 0.0 Z"]},
+  wollyeongpo:{"land":["M0.0 73.0 L200.0 73.0 L200.0 49.7 L197.0 48.0 L192.7 42.9 L188.9 39.4 L185.8 43.3 L181.7 44.2 L177.3 43.7 L173.6 41.6 L169.9 38.2 L167.5 34.2 L165.4 30.8 L155.7 31.8 L156.2 35.4 L149.8 33.6 L145.8 36.9 L142.7 37.5 L138.3 37.4 L135.1 36.2 L132.1 34.3 L130.0 31.8 L128.4 30.0 L128.5 28.0 L129.0 25.2 L130.8 23.0 L130.8 20.1 L132.1 17.8 L131.7 15.2 L132.5 12.1 L131.5 11.1 L129.8 11.3 L129.3 10.0 L130.2 8.3 L128.8 6.8 L127.7 8.1 L127.0 10.8 L127.4 14.2 L126.2 13.6 L125.0 14.4 L124.0 16.8 L123.8 21.2 L123.4 25.7 L123.9 29.6 L123.6 33.1 L124.7 37.3 L126.2 37.8 L126.0 39.1 L124.7 40.6 L124.6 42.5 L123.4 44.7 L123.2 48.1 L122.9 54.0 L121.6 55.8 L121.0 59.6 L117.5 62.7 L116.9 62.1 L104.7 73.0 L103.0 73.0 L98.4 68.4 L97.2 69.6 L100.4 73.0 L89.1 73.0 L91.1 69.3 L93.6 70.2 L94.9 67.9 L92.7 66.7 L95.2 62.2 L96.2 62.5 L96.5 62.0 L97.4 62.5 L100.3 57.4 L98.4 56.2 L99.4 54.4 L113.6 43.8 L112.2 41.8 L97.5 52.4 L86.0 73.0 L67.3 73.0 L67.4 71.8 L66.3 66.7 L64.8 62.1 L63.1 57.7 L63.3 56.1 L65.7 55.2 L63.7 52.2 L62.9 54.0 L59.6 54.6 L59.1 52.7 L57.6 50.0 L54.5 48.9 L55.8 45.2 L53.4 47.5 L47.7 44.3 L45.9 43.2 L43.5 41.1 L40.7 36.6 L41.7 35.2 L41.2 33.3 L39.4 31.8 L41.6 31.3 L45.0 29.0 L45.3 27.7 L42.9 26.9 L38.7 30.7 L35.8 31.8 L32.8 32.1 L33.9 35.2 L31.6 36.0 L30.2 33.7 L29.0 32.8 L27.2 35.3 L25.4 37.0 L22.8 36.7 L21.4 37.7 L20.0 36.8 L19.1 38.4 L16.2 39.3 L15.4 38.4 L14.8 37.3 L11.5 39.5 L8.6 39.2 L4.3 38.8 L0.0 37.5 Z"]},
+  panpo:{"land":["M200.0 73.0 L200.0 3.9 L197.4 2.0 L197.8 0.0 L160.7 0.0 L160.5 2.8 L161.3 6.8 L159.8 9.3 L157.8 10.0 L155.5 14.2 L153.6 14.1 L149.9 15.0 L149.1 15.8 L147.5 17.7 L144.7 16.7 L143.3 14.0 L140.0 14.7 L137.1 16.9 L133.8 18.3 L130.7 18.3 L128.4 15.6 L126.5 12.9 L121.9 14.4 L118.4 12.9 L116.0 13.9 L113.1 17.7 L110.6 20.3 L106.5 17.1 L104.1 15.5 L100.4 13.1 L98.9 12.1 L98.7 9.0 L99.1 3.9 L99.5 0.0 L97.1 0.0 L96.9 8.5 L97.2 13.0 L98.8 17.3 L99.8 20.9 L102.0 20.5 L104.3 19.3 L105.3 22.0 L107.7 27.6 L100.1 32.7 L101.4 35.8 L100.0 36.5 L98.9 34.0 L97.2 34.0 L92.3 26.6 L91.2 25.0 L90.9 23.9 L93.1 22.1 L95.8 20.9 L96.2 19.9 L95.9 18.8 L93.4 17.6 L86.7 19.3 L87.1 26.9 L82.2 27.3 L81.9 18.7 L59.3 7.1 L54.9 0.0 L33.8 0.0 L21.1 14.6 L12.9 13.2 L6.9 8.4 L4.2 3.1 L0.0 0.5 L0.0 73.0 Z"]},
+  hamo:{"land":["M0.0 0.0 L0.0 73.0 L200.0 73.0 L200.0 58.4 L194.3 48.9 L187.8 9.9 L188.4 8.9 L187.8 4.9 L159.3 0.0 L127.3 0.0 L126.7 0.5 L127.6 2.2 L132.0 5.0 L134.4 5.4 L137.3 1.0 L159.4 4.6 L159.4 7.3 L183.8 11.2 L188.0 34.2 L173.2 38.1 L173.5 40.5 L186.9 73.0 L162.2 73.0 L162.9 71.2 L165.3 73.0 L165.9 73.0 L151.0 44.8 L132.2 31.5 L109.6 44.8 L97.0 29.3 L81.9 37.4 L62.8 12.1 L71.1 3.4 L67.3 0.0 L58.4 0.0 L53.1 5.9 L46.8 7.7 L40.3 8.4 L28.9 5.8 L20.4 3.6 L6.4 0.0 Z"]},
+  hado:{"land":["M200.0 73.0 L200.0 0.0 L123.8 0.0 L120.7 0.5 L118.9 3.1 L116.8 8.4 L112.8 10.5 L107.2 17.0 L109.4 17.4 L110.3 19.2 L108.5 21.7 L106.1 22.5 L105.7 27.6 L103.6 30.2 L100.6 33.1 L100.0 36.5 L93.8 40.6 L92.4 39.6 L87.0 38.5 L85.1 40.9 L85.9 43.6 L81.3 44.5 L78.3 43.6 L74.8 46.3 L74.9 49.8 L73.1 52.7 L74.3 57.0 L74.4 59.9 L72.9 62.3 L70.4 62.3 L67.8 63.8 L67.4 66.6 L68.9 67.3 L69.0 69.1 L69.8 70.7 L67.4 71.1 L68.1 73.0 Z","M0.0 61.4 L1.5 62.4 L18.1 67.2 L34.6 66.4 L48.5 64.7 L51.0 60.8 L33.2 60.9 L16.5 60.5 L2.5 52.4 L0.0 50.2 Z"]},
+  daepyeong:{"land":["M0.0 0.0 L0.0 73.0 L200.0 73.0 L200.0 22.8 L196.8 21.9 L185.4 16.4 L175.5 10.5 L171.2 7.2 L174.9 4.6 L179.0 0.0 L157.5 0.0 L155.8 2.0 L154.2 6.3 L154.0 13.1 L152.9 20.7 L149.1 24.2 L145.4 25.4 L138.8 29.1 L135.1 28.0 L134.0 26.5 L133.0 25.1 L131.4 15.4 L129.6 10.0 L124.2 0.0 L115.2 0.0 L121.0 2.5 L123.1 3.9 L128.9 13.9 L129.5 16.5 L128.9 25.5 L116.6 39.2 L114.4 40.1 L107.5 36.5 L104.3 34.5 L101.7 38.0 L100.0 36.5 L104.4 30.9 L109.9 25.3 L111.8 22.2 L112.0 20.0 L113.1 17.2 L111.5 14.0 L109.0 12.2 L105.1 12.5 L102.6 10.8 L96.3 10.9 L92.4 8.9 L90.1 5.4 L88.6 1.9 L93.5 0.3 L94.1 0.0 Z"]},
+  yerae:{"land":["M200.0 73.0 L200.0 0.0 L105.4 0.0 L102.5 4.6 L93.4 13.2 L96.3 27.6 L95.7 30.1 L100.0 36.5 L98.1 37.0 L94.9 37.9 L87.7 42.4 L82.4 47.5 L76.2 50.6 L68.5 53.4 L60.9 55.5 L57.0 58.5 L55.3 60.5 L45.5 65.2 L37.9 68.7 L31.0 71.9 L24.1 72.8 L15.5 73.0 L15.2 71.7 L13.2 71.1 L12.1 73.0 Z"]},
+  sinchang:{"land":["M0.0 0.0 L0.0 73.0 L200.0 73.0 L200.0 62.5 L198.0 62.3 L199.2 53.7 L179.0 38.4 L171.4 19.1 L180.5 11.2 L200.0 7.9 L200.0 1.6 L180.3 5.5 L168.3 15.4 L168.1 16.6 L140.1 39.2 L132.3 36.3 L127.2 30.6 L125.5 24.9 L120.5 20.5 L117.7 13.9 L115.4 1.5 L114.6 0.0 Z"]},
+};
 
 const RUNS = [
   { name:"협재 → 곽지", dist:"약 10km · 북동진", fromId:"hyeopjae",
@@ -502,6 +672,34 @@ function repState(spot){
   return {h:hrs[peakI], score:hrs[peakI].score, idx:peakI, mode:"day", idxs, win:bestWindow(hrs,idxs)};
 }
 
+/* ---------------- 지형 도형 렌더 ---------------- */
+/* 가로로 긴 카드와 작은 목록 썸네일이 같은 도형을 쓰므로 slice로 잘라 채운다. */
+function shapeSvg(sp,cls){
+  const s=SHAPES[sp.id];
+  if(!s) return `<svg class="${cls}" viewBox="0 0 200 73" aria-hidden="true"><rect width="200" height="73" fill="var(--shape-sea)"/></svg>`;
+  const land=s.land.map(d=>`<path d="${d}" fill="var(--shape-land)" stroke="var(--axis)" stroke-width="1"/>`).join("");
+  const wall=(s.wall||[]).map(d=>`<path d="${d}" fill="none" stroke="var(--ink-3)" stroke-width="2" stroke-linecap="round"/>`).join("");
+  return `<svg class="${cls}" viewBox="0 0 200 73" preserveAspectRatio="xMidYMid slice"
+    role="img" aria-label="${sp.name} 주변 해안 지형">
+    <rect width="200" height="73" fill="var(--shape-sea)"/>${land}${wall}
+    <circle cx="100" cy="36.5" r="3.4" fill="var(--s-blue)" stroke="var(--surface-1)" stroke-width="1.4"/>
+  </svg>`;
+}
+
+/* 낮 시간(06~19시) 적합도 미니 막대 */
+function sparkHtml(sp){
+  const hrs=DATA.spots[sp.id].hours;
+  const idxs=dayIdxRange(dayMode==="now"?0:dayMode);
+  if(!idxs.length) return "";
+  const now=dayMode==="now"?nowIdx():-1;
+  const bars=idxs.map(i=>{
+    const g=grade(hrs[i].score);
+    return `<i style="background:${g.col};opacity:${now>=0&&i<now?".22":"1"}"></i>`;
+  }).join("");
+  return `<div class="spark" aria-hidden="true">${bars}</div>
+    <div class="spark-lab"><span>${hh(DATA.time[idxs[0]])}시</span><span>${hh(DATA.time[idxs[idxs.length-1]])+1}시</span></div>`;
+}
+
 /* ---------------- 렌더 ---------------- */
 /* 점수 내림차순. 점수 없는 스팟은 맨 뒤. 카드 목록과 전환 바가 같은 순서를 쓴다.
    SPOTS 배열 자체는 API 응답 인덱스와 묶여 있으므로 절대 재정렬하지 않는다. */
@@ -510,9 +708,18 @@ function rankedSpots(){
 }
 
 function render(){
-  renderHero(); renderMap(); renderCards(); renderSwitch(); renderDetail(); renderRuns();
+  renderHero(); renderMap(); renderCards(); renderPicker(); renderDetail(); renderRuns();
+  $("#spotCount").textContent=SPOTS.length+"곳";
   $("#updated").textContent="업데이트 "+new Date().toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit"});
+  syncTopbar();
 }
+
+/* 고정된 상단 바 높이를 상세 바 sticky 위치(--topbar-h)에 맞춰준다. */
+function syncTopbar(){
+  const h=document.querySelector(".topbar").offsetHeight;
+  document.documentElement.style.setProperty("--topbar-h",h+"px");
+}
+addEventListener("resize",syncTopbar);
 
 function renderHero(){
   const ranked=SPOTS.map(s=>({s, r:repState(s)})).filter(x=>x.r.score!=null).sort((a,b)=>b.r.score-a.r.score);
@@ -525,12 +732,13 @@ function renderHero(){
   if(top.r.mode==="day"&&top.r.win){
     why += `<br>추천 시간대: <b>${hh(DATA.time[top.r.win.s])}시~${hh(DATA.time[top.r.win.e])+1}시</b>`;
   }
+  el.style.setProperty("--tint",g.col);
   el.innerHTML=`
-    <div class="label">${when}</div>
+    <div class="eyebrow">${when}</div>
     <div class="value">${top.s.name}</div>
     <div class="score-line">
+      <span class="big">${top.r.score}<small>점</small></span>
       <span class="badge ${g.cls}"><span class="ic">${g.ic}</span>${g.label}</span>
-      <span style="font-size:20px;font-weight:650">${top.r.score}점</span>
     </div>
     <div class="why">${why}</div>`;
   el.onclick=()=>{ selSpot=top.s.id; render(); scrollToDetail(); };
@@ -600,6 +808,8 @@ function renderCards(){
         <div>파고 <b>${fmt(h.whEff)}m</b>${sp.shelter?` <span style="color:var(--ink-3)">방파제 안</span>`:""}${h.wp!=null?` · 주기 ${fmt(h.wp,0)}s`:""}</div>
         <div>기온 <b>${fmt(h.temp,0)}°C</b>${h.sst!=null?` · 수온 <b>${fmt(h.sst,0)}°C</b>`:""}</div>`:"<div>데이터 없음</div>"}
       </div>
+      ${shapeSvg(sp,"shape")}
+      ${sparkHtml(sp)}
       ${flagHtml}${winHtml}`;
     card.querySelector("h3").textContent=sp.name;
     const go=()=>{ selSpot=sp.id; render(); scrollToDetail(); };
@@ -609,31 +819,46 @@ function renderCards(){
   });
 }
 
-/* 상세 위에 붙어 다니는 스팟 전환 바 — 목록까지 스크롤을 올리지 않고 갈아탈 수 있게. */
-function renderSwitch(){
-  const bar=$("#spotSwitch"), keep=bar.scrollLeft;
-  bar.innerHTML="";
-  let active=null;
+/* 상세 위에 붙어 다니는 스팟 드롭다운 — 목록까지 스크롤을 올리지 않고 갈아탈 수 있게. */
+function renderPicker(){
+  const cur=SPOTS.find(s=>s.id===selSpot), cr=repState(cur), cg=grade(cr.score);
+  const btn=$("#pkBtn");
+  btn.innerHTML=`<span class="dot" style="background:${cg.col}"></span><span class="nm"></span>
+    <span class="sc">${cr.score==null?"–":cr.score}</span><span class="caret">▼</span>`;
+  btn.querySelector(".nm").textContent=cur.name;
+
+  const panel=$("#pkPanel");
+  panel.innerHTML="";
   rankedSpots().forEach(({sp,r})=>{
     const g=grade(r.score);
     const b=document.createElement("button");
+    b.type="button"; b.className="pk-item"; b.setAttribute("role","option");
     b.setAttribute("aria-current",String(sp.id===selSpot));
-    b.innerHTML=`<span class="dot" style="background:${g.col}"></span><span class="nm"></span><span class="sc">${r.score==null?"–":r.score}</span>`;
+    b.innerHTML=`${shapeSvg(sp,"shape")}<span class="dot" style="background:${g.col}"></span>
+      <span class="nm"></span><span class="sc">${r.score==null?"–":r.score}</span>`;
     b.querySelector(".nm").textContent=sp.name;
-    b.addEventListener("click",()=>{ selSpot=sp.id; render(); });
-    if(sp.id===selSpot) active=b;
-    bar.appendChild(b);
+    b.addEventListener("click",()=>{ selSpot=sp.id; closePicker(); render(); });
+    panel.appendChild(b);
   });
-  bar.scrollLeft=keep;
-  // 선택한 칩이 화면 밖이면 살짝 끌어온다 (페이지는 움직이지 않는다)
-  if(active){
-    const l=active.offsetLeft, rr=l+active.offsetWidth;
-    if(l<bar.scrollLeft || rr>bar.scrollLeft+bar.clientWidth)
-      bar.scrollLeft = l - bar.clientWidth/2 + active.offsetWidth/2;
-  }
 }
+function closePicker(){
+  $("#spotPicker").classList.remove("open");
+  $("#pkBtn").setAttribute("aria-expanded","false");
+}
+$("#pkBtn").addEventListener("click",e=>{
+  e.stopPropagation();
+  const open=$("#spotPicker").classList.toggle("open");
+  $("#pkBtn").setAttribute("aria-expanded",String(open));
+});
+document.addEventListener("click",e=>{ if(!e.target.closest("#spotPicker")) closePicker(); });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") closePicker(); });
 
-function scrollToDetail(){ $("#detailSec").scrollIntoView({behavior:"smooth",block:"start"}); }
+/* 상단 고정 바에 가리지 않게 그만큼 덜 내려간다. */
+function scrollToDetail(){
+  const off=parseInt(getComputedStyle(document.documentElement).getPropertyValue("--topbar-h"))||64;
+  const y=$("#detailSec").getBoundingClientRect().top+scrollY-off-10;
+  scrollTo({top:y,behavior:"smooth"});
+}
 
 /* ---------------- 상세 ---------------- */
 function renderDetail(){
@@ -911,7 +1136,7 @@ function renderRuns(){
     el.innerHTML=`<div class="info"><h3>${run.name} <span style="font-weight:500;color:var(--ink-3);font-size:13px">${run.dist}</span></h3>
       <p>${run.desc}</p></div>
       <span class="badge ${ok?"b-good":""}" style="${ok?"":"background:var(--ink-3)"}"><span class="ic">${ok?"●":"◌"}</span>${ok?(isNow?"지금 가능":"이날 가능"):"대기"}</span>
-      <p style="width:100%;font-size:12.5px;color:var(--ink-2)">${why}</p>`;
+      <p class="why">${why}</p>`;
     g.appendChild(el);
   });
 }
