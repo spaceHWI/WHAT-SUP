@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WHAT-SUP — 패들보드 스팟·타이밍·항로 추천</title>
 <!-- 파비콘: 위 헤더 로고와 같은 그림 (파비콘은 CSS 변수를 못 읽어 색을 직접 적음) -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%231baf7a'/%3E%3Cstop offset='1' stop-color='%232a78d6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='40' height='40' rx='11' fill='url(%23g)'/%3E%3Cg stroke='%23fff' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M26.4 10.6 L14.8 23.4' stroke-width='2.3'/%3E%3Cpath d='M23.2 15.2 L20.4 27.2' stroke-width='2.7'/%3E%3Cpath d='M8.5 29 H31.5' stroke-width='3'/%3E%3Cpath d='M5.6 34 q4.2 -2.9 8.4 0 t8.4 0 t8.4 0' stroke-width='2.2' opacity='.65'/%3E%3C/g%3E%3Ccircle cx='23.6' cy='12.2' r='2.6' fill='%23fff'/%3E%3Cellipse cx='13.6' cy='24.9' rx='1.7' ry='2.7' transform='rotate(-42 13.6 24.9)' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cdefs%3E%3ClinearGradient id='lgSky' gradientUnits='userSpaceOnUse' x1='24' y1='1' x2='24' y2='34'%3E%3Cstop offset='0' stop-color='%233b2f8f'/%3E%3Cstop offset='.5' stop-color='%23a8496f'/%3E%3Cstop offset='1' stop-color='%23ec835a'/%3E%3C/linearGradient%3E%3ClinearGradient id='lgSea' gradientUnits='userSpaceOnUse' x1='24' y1='33' x2='24' y2='47'%3E%3Cstop offset='0' stop-color='%231baf7a'/%3E%3Cstop offset='1' stop-color='%232a5fd6'/%3E%3C/linearGradient%3E%3CclipPath id='lgBadge'%3E%3Ccircle cx='24' cy='24' r='23'/%3E%3C/clipPath%3E%3C/defs%3E%3Cg clip-path='url(%23lgBadge)'%3E%3Crect x='0' y='0' width='48' height='34' fill='url(%23lgSky)'/%3E%3Ccircle cx='24' cy='27' r='12.5' fill='%23fab219'/%3E%3Crect x='0' y='19.4' width='48' height='1.7' fill='url(%23lgSky)'/%3E%3Crect x='0' y='23.2' width='48' height='2' fill='url(%23lgSky)'/%3E%3Crect x='0' y='27.4' width='48' height='2.4' fill='url(%23lgSky)'/%3E%3Crect x='0' y='33' width='48' height='15' fill='url(%23lgSea)'/%3E%3Cpath d='M-2 38.2 q6.5 -3 13 0 t13 0 t13 0 t13 0' fill='none' stroke='%23fff' stroke-width='1.5' stroke-linecap='round' opacity='.45'/%3E%3Cpath d='M-2 43.4 q6.5 -3 13 0 t13 0 t13 0 t13 0' fill='none' stroke='%23fff' stroke-width='1.5' stroke-linecap='round' opacity='.3'/%3E%3Cg stroke='%23101a2e' fill='none' stroke-linecap='round'%3E%3Cpath d='M14.5 33.7 H33.5' stroke-width='2.8'/%3E%3Cpath d='M25.2 25.1 L23.5 32.4' stroke-width='2.5'/%3E%3Cpath d='M28.9 21.3 L19.3 31.5' stroke-width='1.9'/%3E%3C/g%3E%3Ccircle cx='25.7' cy='22.4' r='2.3' fill='%23101a2e'/%3E%3Cellipse cx='18.3' cy='32.6' rx='1.4' ry='2.2' transform='rotate(-44 18.3 32.6)' fill='%23101a2e'/%3E%3Ccircle cx='24' cy='24' r='21.2' fill='none' stroke='%23fff' stroke-width='1.2' opacity='.5'/%3E%3C/g%3E%3C/svg%3E">
 <style>
   :root {
     color-scheme: light;
@@ -46,7 +46,7 @@
   .wrap { max-width:1080px; margin:0 auto; padding:20px 16px 64px; }
   header.top { display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; padding:8px 0 4px; }
   header.top .brand { display:flex; align-items:center; gap:9px; }
-  header.top .logo { width:34px; height:34px; display:block; flex-shrink:0; }
+  header.top .logo { width:38px; height:38px; display:block; flex-shrink:0; }
   header.top h1 { font-size:22px; font-weight:700; letter-spacing:-0.02em; }
   header.top .sub { color:var(--ink-2); font-size:13px; }
   header.top .spacer { flex:1; }
@@ -173,22 +173,37 @@
 <div class="wrap">
   <header class="top">
     <span class="brand">
-      <svg class="logo" viewBox="0 0 40 40" role="img" aria-label="WHAT-SUP 로고">
+      <svg class="logo" viewBox="0 0 48 48" role="img" aria-label="WHAT-SUP 로고">
         <defs>
-          <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="var(--s-aqua)"/>
-            <stop offset="1" stop-color="var(--s-blue)"/>
+          <linearGradient id="lgSky" gradientUnits="userSpaceOnUse" x1="24" y1="1" x2="24" y2="34">
+            <stop offset="0" stop-color="#3b2f8f"/>
+            <stop offset=".5" stop-color="#a8496f"/>
+            <stop offset="1" stop-color="#ec835a"/>
           </linearGradient>
+          <linearGradient id="lgSea" gradientUnits="userSpaceOnUse" x1="24" y1="33" x2="24" y2="47">
+            <stop offset="0" stop-color="#1baf7a"/>
+            <stop offset="1" stop-color="#2a5fd6"/>
+          </linearGradient>
+          <clipPath id="lgBadge"><circle cx="24" cy="24" r="23"/></clipPath>
         </defs>
-        <rect width="40" height="40" rx="11" fill="url(#logoGrad)"/>
-        <g stroke="#fff" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M26.4 10.6 L14.8 23.4" stroke-width="2.3"/>
-          <path d="M23.2 15.2 L20.4 27.2" stroke-width="2.7"/>
-          <path d="M8.5 29 H31.5" stroke-width="3"/>
-          <path d="M5.6 34 q4.2 -2.9 8.4 0 t8.4 0 t8.4 0" stroke-width="2.2" opacity=".65"/>
+        <g clip-path="url(#lgBadge)">
+          <rect x="0" y="0" width="48" height="34" fill="url(#lgSky)"/>
+          <circle cx="24" cy="27" r="12.5" fill="#fab219"/>
+          <rect x="0" y="19.4" width="48" height="1.7" fill="url(#lgSky)"/>
+          <rect x="0" y="23.2" width="48" height="2" fill="url(#lgSky)"/>
+          <rect x="0" y="27.4" width="48" height="2.4" fill="url(#lgSky)"/>
+          <rect x="0" y="33" width="48" height="15" fill="url(#lgSea)"/>
+          <path d="M-2 38.2 q6.5 -3 13 0 t13 0 t13 0 t13 0" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".45"/>
+          <path d="M-2 43.4 q6.5 -3 13 0 t13 0 t13 0 t13 0" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".3"/>
+          <g stroke="#101a2e" fill="none" stroke-linecap="round">
+            <path d="M14.5 33.7 H33.5" stroke-width="2.8"/>
+            <path d="M25.2 25.1 L23.5 32.4" stroke-width="2.5"/>
+            <path d="M28.9 21.3 L19.3 31.5" stroke-width="1.9"/>
+          </g>
+          <circle cx="25.7" cy="22.4" r="2.3" fill="#101a2e"/>
+          <ellipse cx="18.3" cy="32.6" rx="1.4" ry="2.2" transform="rotate(-44 18.3 32.6)" fill="#101a2e"/>
+          <circle cx="24" cy="24" r="21.2" fill="none" stroke="#fff" stroke-width="1.2" opacity=".5"/>
         </g>
-        <circle cx="23.6" cy="12.2" r="2.6" fill="#fff"/>
-        <ellipse cx="13.6" cy="24.9" rx="1.7" ry="2.7" transform="rotate(-42 13.6 24.9)" fill="#fff"/>
       </svg>
       <h1>WHAT-SUP</h1>
     </span>
@@ -249,6 +264,7 @@
 /* ---------------- 스팟 데이터 ---------------- */
 // facing: 해변이 바다를 향하는 방위(도). 바람 dir은 "불어오는 방향" 기준.
 // left/right: 해안선 양쪽 랜드마크와 스팟 기준 방위.
+// shelter: 방파제·포구로 둘러싸여 안쪽 파도가 잔잔한 정도(0~1). 없으면 열린 해변.
 const SPOTS = [
   { id:"iho",     name:"이호테우",   lat:33.4986, lon:126.4529, facing:350, mx:313, my:96,
     lv:"초급", desc:"제주시에서 가장 가까운 스팟. 모래바닥, 완만한 수심.",
@@ -289,7 +305,7 @@ const SPOTS = [
   { id:"panpo",   name:"판포",       lat:33.3475, lon:126.1836, facing:290, mx:72,  my:258,
     lv:"초급", desc:"방파제로 둘러싸인 포구 안이 천연 수영장처럼 잔잔 — SUP·스노클링 명소.",
     left:{name:"신창 풍차해안", dir:200}, right:{name:"월령·금능 방면", dir:30},
-    tide:"간조 때 포구 수심 얕음 — 중조 이상 추천", lx:-8, ly:12, anchor:"end" },
+    tide:"간조 때 포구 수심 얕음 — 중조 이상 추천", lx:-8, ly:12, anchor:"end", shelter:0.7 },
   { id:"hamo",    name:"하모",       lat:33.2160, lon:126.2510, facing:215, mx:120, my:318,
     lv:"초급", desc:"모슬포 옆 한적한 모래 해변. 가파도·송악산 뷰.",
     left:{name:"모슬포항", dir:300}, right:{name:"송악산·산이수동 방면", dir:130},
@@ -301,15 +317,15 @@ const SPOTS = [
   { id:"daepyeong",name:"대평포구",  lat:33.2378, lon:126.3660, facing:185, mx:226, my:353,
     lv:"초급~중급", desc:"박수기정 절벽을 마주보는 SUP 성지. 포구 밖 절벽 코스가 백미.",
     left:{name:"박수기정 절벽", dir:275}, right:{name:"예래·논짓물 방면", dir:95},
-    tide:"포구 안은 잔잔 — 너울 있는 날 출입 주의", lx:-8, ly:12, anchor:"end" },
+    tide:"포구 안은 잔잔 — 너울 있는 날 출입 주의", lx:-8, ly:12, anchor:"end", shelter:0.55 },
   { id:"yerae",   name:"예래포구",   lat:33.2427, lon:126.3925, facing:195, mx:252, my:358,
     lv:"초급", desc:"논짓물 옆 아담한 포구. 잔잔한 날 중문 방면 해안 코스.",
     left:{name:"대평·박수기정 방면", dir:265}, right:{name:"논짓물·중문 방면", dir:90},
-    tide:"간조 때 수심 얕음", lx:-2, ly:-12 },
+    tide:"간조 때 수심 얕음", lx:-2, ly:-12, shelter:0.5 },
   { id:"sinchang",name:"신창포구",   lat:33.3446, lon:126.1785, facing:280, mx:66,  my:276,
     lv:"초급~중급", desc:"풍차 해안(싱계물공원)의 포구. 물빛이 맑고 풍경이 이국적이에요.",
     left:{name:"용수리 방면", dir:200}, right:{name:"판포 방면", dir:20},
-    tide:"간조 때 암반 노출 주의", lx:-8, ly:12, anchor:"end" },
+    tide:"간조 때 암반 노출 주의", lx:-8, ly:12, anchor:"end", shelter:0.6 },
 ];
 
 const RUNS = [
@@ -336,6 +352,14 @@ const dirKo = d => DIRS[Math.round(d/22.5)%16]+"풍";
 const fmt = (v,n=1)=> (v==null||isNaN(v)) ? "–" : v.toFixed(n);
 
 /* ---------------- 점수 ---------------- */
+/* 방파제로 둘러싸인 포구는 예보 파고가 높아도 안쪽이 실제로 잔잔하다.
+   spot.shelter 비율만큼 파고를 낮춰서 점수를 낸다.
+   단 원래 파고가 SHELTER_MAX_WAVE 이상인 날은 포구 입구 통과 자체가 위험하므로 보정하지 않는다. */
+const SHELTER_MAX_WAVE = 1.5;
+function effWave(spot,wh){
+  if(wh==null || !spot.shelter || wh>=SHELTER_MAX_WAVE) return wh;
+  return wh*(1-spot.shelter);
+}
 function scoreHour(spot,h){
   // h: {ws,gs,wd,t,pr,pp,wc, wh,wp,sst,sl}
   if(h.ws==null) return {score:null,flags:[]};
@@ -343,8 +367,8 @@ function scoreHour(spot,h){
   const w=h.ws;
   if(w>3) s-= (w<=5)? (w-3)*10 : (w<=7)? 20+(w-5)*15 : 50+(w-7)*10;
   if(h.gs!=null && h.gs>w+4){ s-=10; if(h.gs>12) s-=10; }
-  if(h.wh!=null){
-    const wave=h.wh;
+  const wave=effWave(spot,h.wh);
+  if(wave!=null){
     if(wave>0.3) s-= (wave<=0.6)? (wave-0.3)*67 : (wave<=1.0)? 20+(wave-0.6)*75 : 50+(wave-1.0)*30;
   } else flags.push("파고 정보 없음");
   // 이안풍(육지→바다): 불어오는 방향이 facing+180 근처
@@ -410,7 +434,8 @@ async function fetchAll(){
       wh:m?m.wave_height[k]:null, wp:m?m.wave_period[k]:null,
       sst:m?m.sea_surface_temperature[k]:null, sl:m?m.sea_level_height_msl[k]:null,
     }));
-    hours.forEach(h=>{ const r=scoreHour(s,h); h.score=r.score; h.flags=r.flags; });
+    // whEff: 방파제 보정을 반영한 표시용 파고. 화면·차트·표는 모두 이 값을 쓴다.
+    hours.forEach(h=>{ h.whEff=effWave(s,h.wh); const r=scoreHour(s,h); h.score=r.score; h.flags=r.flags; });
     spots[s.id]={hours};
   });
   return {time, spots};
@@ -469,7 +494,7 @@ function renderHero(){
   const top=ranked[0], g=grade(top.r.score);
   const when = dayMode==="now" ? "지금 베스트 스팟" : dayLabel(dayMode)+" 베스트 스팟";
   const h=top.r.h;
-  let why = `${dirKo(h.wd)} ${fmt(h.ws)}m/s · 파고 ${fmt(h.wh)}m · 기온 ${fmt(h.temp,0)}°C`+(h.sst!=null?` · 수온 ${fmt(h.sst,0)}°C`:"");
+  let why = `${dirKo(h.wd)} ${fmt(h.ws)}m/s · 파고 ${fmt(h.whEff)}m${top.s.shelter?"(방파제 안)":""} · 기온 ${fmt(h.temp,0)}°C`+(h.sst!=null?` · 수온 ${fmt(h.sst,0)}°C`:"");
   if(top.r.mode==="day"&&top.r.win){
     why += `<br>추천 시간대: <b>${hh(DATA.time[top.r.win.s])}시~${hh(DATA.time[top.r.win.e])+1}시</b>`;
   }
@@ -521,8 +546,11 @@ function renderMap(){
 function renderCards(){
   const grid=$("#spotGrid");
   grid.innerHTML="";
-  SPOTS.forEach(sp=>{
-    const r=repState(sp), g=grade(r.score), h=r.h;
+  // 점수 높은 순. 점수가 없는 스팟(데이터 없음)은 맨 뒤로.
+  const ranked=SPOTS.map(sp=>({sp, r:repState(sp)}))
+    .sort((a,b)=>(b.r.score??-1)-(a.r.score??-1));
+  ranked.forEach(({sp,r})=>{
+    const g=grade(r.score), h=r.h;
     const card=document.createElement("div");
     card.className="card spot-card"+(sp.id===selSpot?" sel":"");
     card.tabIndex=0;
@@ -530,6 +558,7 @@ function renderCards(){
     if(h&&h.flags&&h.flags.includes("이안풍 주의")) flagHtml=`<div class="flag danger">⚠ 이안풍 — 바다 쪽으로 떠밀림 주의</div>`;
     else if(h&&h.flags&&h.flags.includes("뇌우 예보")) flagHtml=`<div class="flag danger">⚠ 뇌우 예보 — 출수 금지</div>`;
     else if(sp.id==="jungmun"&&h&&h.wh!=null&&h.wh>0.5) flagHtml=`<div class="flag caution">▲ 서핑 파도 구간 — SUP 비추천</div>`;
+    else if(sp.shelter&&h&&h.wh!=null&&h.wh>=SHELTER_MAX_WAVE) flagHtml=`<div class="flag caution">▲ 너울 ${fmt(h.wh)}m — 포구 밖으로 나가지 마세요</div>`;
     let winHtml="";
     if(r.mode==="day"&&r.win) winHtml=`<div class="window">추천 <b>${hh(DATA.time[r.win.s])}시~${hh(DATA.time[r.win.e])+1}시</b> (최고 ${r.win.peak}점)</div>`;
     else if(r.mode==="day"&&!r.win) winHtml=`<div class="window">이날은 추천 시간대가 없어요</div>`;
@@ -544,7 +573,7 @@ function renderCards(){
         <span style="font-size:12px;color:var(--ink-3);margin-left:6px">${sp.lv}</span></div>
       <div class="rows">
         ${h?`<div>바람 <b>${dirKo(h.wd)} ${fmt(h.ws)}m/s</b> (돌풍 ${fmt(h.gs)})</div>
-        <div>파고 <b>${fmt(h.wh)}m</b>${h.wp!=null?` · 주기 ${fmt(h.wp,0)}s`:""}</div>
+        <div>파고 <b>${fmt(h.whEff)}m</b>${sp.shelter?` <span style="color:var(--ink-3)">방파제 안</span>`:""}${h.wp!=null?` · 주기 ${fmt(h.wp,0)}s`:""}</div>
         <div>기온 <b>${fmt(h.temp,0)}°C</b>${h.sst!=null?` · 수온 <b>${fmt(h.sst,0)}°C</b>`:""}</div>`:"<div>데이터 없음</div>"}
       </div>
       ${flagHtml}${winHtml}`;
@@ -595,7 +624,7 @@ function renderDetail(){
   /* 2) 바람 (막대) + 3) 파고 (선) — 소형 다중 차트 */
   c.appendChild(barChart("바람 (m/s)", times, seg.map(x=>x.ws), seg.map(x=>x.gs), "var(--s-blue)"));
   if(hasMarine && seg.some(x=>x.wh!=null))
-    c.appendChild(lineChart("파고 (m)", times, seg.map(x=>x.wh), "var(--s-aqua)", 1));
+    c.appendChild(lineChart("파고 (m)"+(sp.shelter?" · 방파제 안쪽 기준":""), times, seg.map(x=>x.whEff), "var(--s-aqua)", 1));
   if(hasMarine && seg.some(x=>x.sl!=null))
     c.appendChild(lineChart("조위 — 평균해수면 기준 (m)", times, seg.map(x=>x.sl), "var(--s-violet)", 1, true));
 
@@ -714,7 +743,7 @@ function attachTooltips(root,sp,seg,times){
       showTT(px,py,ttLabel(times[k]),[
         {v:(h.score==null?"–":h.score+"점"),k:g.label,col:g.col},
         {v:dirKo(h.wd)+" "+fmt(h.ws)+"m/s",k:"바람"},
-        {v:fmt(h.wh)+"m",k:"파고"},
+        {v:fmt(h.whEff)+"m",k:"파고"+(sp.shelter?"(방파제 안)":"")},
         ...(h.flags&&h.flags.length?[{v:"⚠",k:h.flags.join(", ")}]:[])
       ]);
     } else if(kind==="wind"){
@@ -744,7 +773,7 @@ function attachTooltips(root,sp,seg,times){
       const isTide=svg.parentElement.querySelector("h3").textContent.includes("조위");
       showTT(e.clientX,e.clientY,ttLabel(times[k]),
         isTide? [{v:fmt(h.sl,2)+"m",k:"조위(평균해수면 기준)",col:"var(--s-violet)"}]
-              : [{v:fmt(h.wh)+"m",k:"파고"+(h.wp!=null?" · 주기 "+fmt(h.wp,0)+"s":""),col:"var(--s-aqua)"}]);
+              : [{v:fmt(h.whEff)+"m",k:"파고"+(sp.shelter?"(방파제 안)":"")+(h.wp!=null?" · 주기 "+fmt(h.wp,0)+"s":""),col:"var(--s-aqua)"}]);
     });
     r.addEventListener("pointerleave",()=>{ line.style.display="none"; hideTT(); });
   });
@@ -758,12 +787,12 @@ function renderTable(sp,seg,times){
     const g=grade(h.score);
     rows+=`<tr><td>${ttLabel(times[k])}</td><td>${h.score==null?"–":h.score}</td><td>${g.label}</td>
       <td>${fmt(h.ws)}</td><td>${fmt(h.gs)}</td><td>${dirKo(h.wd)}</td>
-      <td>${fmt(h.wh)}</td><td>${fmt(h.wp,0)}</td><td>${fmt(h.sl,2)}</td>
+      <td>${fmt(h.whEff)}</td><td>${fmt(h.wp,0)}</td><td>${fmt(h.sl,2)}</td>
       <td>${fmt(h.temp,0)}</td><td>${fmt(h.sst,0)}</td><td>${fmt(h.pr)}</td></tr>`;
   });
   w.innerHTML=`<table class="data" aria-label="${sp.name} 시간별 예보 표"><thead><tr>
     <th>시각</th><th>점수</th><th>판정</th><th>풍속 m/s</th><th>돌풍</th><th>풍향</th>
-    <th>파고 m</th><th>주기 s</th><th>조위 m</th><th>기온 °C</th><th>수온 °C</th><th>강수 mm</th>
+    <th>파고 m${sp.shelter?" (방파제 안)":""}</th><th>주기 s</th><th>조위 m</th><th>기온 °C</th><th>수온 °C</th><th>강수 mm</th>
     </tr></thead><tbody>${rows}</tbody></table>`;
 }
 
@@ -778,6 +807,7 @@ function renderRuns(){
     else {
       const inDir = run.wmin<=run.wmax ? (h.wd>=run.wmin&&h.wd<=run.wmax) : (h.wd>=run.wmin||h.wd<=run.wmax);
       const inSpd = h.ws>=run.smin&&h.ws<=run.smax;
+      // 다운윈드는 포구 밖 먼바다를 달리므로 방파제 보정을 쓰지 않고 원래 파고로 판단한다.
       ok = inDir&&inSpd&&(h.wh==null||h.wh<1.2)&&h.wc<95;
       why = ok ? `지금 ${dirKo(h.wd)} ${fmt(h.ws)}m/s — 조건 충족!`
                : `현재 ${dirKo(h.wd)} ${fmt(h.ws)}m/s (필요: ${dirKo((run.wmin+run.wmax)/2%360).replace("풍","")} 계열 ${run.smin}~${run.smax}m/s)`;
