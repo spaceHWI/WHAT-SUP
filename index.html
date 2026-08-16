@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WHAT-SUP — 패들보드 스팟·타이밍·항로 추천</title>
+<!-- 파비콘: 위 헤더 로고와 같은 그림 (파비콘은 CSS 변수를 못 읽어 색을 직접 적음) -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%231baf7a'/%3E%3Cstop offset='1' stop-color='%232a78d6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='40' height='40' rx='11' fill='url(%23g)'/%3E%3Cg stroke='%23fff' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M26.4 10.6 L14.8 23.4' stroke-width='2.3'/%3E%3Cpath d='M23.2 15.2 L20.4 27.2' stroke-width='2.7'/%3E%3Cpath d='M8.5 29 H31.5' stroke-width='3'/%3E%3Cpath d='M5.6 34 q4.2 -2.9 8.4 0 t8.4 0 t8.4 0' stroke-width='2.2' opacity='.65'/%3E%3C/g%3E%3Ccircle cx='23.6' cy='12.2' r='2.6' fill='%23fff'/%3E%3Cellipse cx='13.6' cy='24.9' rx='1.7' ry='2.7' transform='rotate(-42 13.6 24.9)' fill='%23fff'/%3E%3C/svg%3E">
 <style>
   :root {
     color-scheme: light;
@@ -43,6 +45,8 @@
   }
   .wrap { max-width:1080px; margin:0 auto; padding:20px 16px 64px; }
   header.top { display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; padding:8px 0 4px; }
+  header.top .brand { display:flex; align-items:center; gap:9px; }
+  header.top .logo { width:34px; height:34px; display:block; flex-shrink:0; }
   header.top h1 { font-size:22px; font-weight:700; letter-spacing:-0.02em; }
   header.top .sub { color:var(--ink-2); font-size:13px; }
   header.top .spacer { flex:1; }
@@ -168,7 +172,26 @@
 <body>
 <div class="wrap">
   <header class="top">
-    <h1>WHAT-SUP</h1>
+    <span class="brand">
+      <svg class="logo" viewBox="0 0 40 40" role="img" aria-label="WHAT-SUP 로고">
+        <defs>
+          <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="var(--s-aqua)"/>
+            <stop offset="1" stop-color="var(--s-blue)"/>
+          </linearGradient>
+        </defs>
+        <rect width="40" height="40" rx="11" fill="url(#logoGrad)"/>
+        <g stroke="#fff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M26.4 10.6 L14.8 23.4" stroke-width="2.3"/>
+          <path d="M23.2 15.2 L20.4 27.2" stroke-width="2.7"/>
+          <path d="M8.5 29 H31.5" stroke-width="3"/>
+          <path d="M5.6 34 q4.2 -2.9 8.4 0 t8.4 0 t8.4 0" stroke-width="2.2" opacity=".65"/>
+        </g>
+        <circle cx="23.6" cy="12.2" r="2.6" fill="#fff"/>
+        <ellipse cx="13.6" cy="24.9" rx="1.7" ry="2.7" transform="rotate(-42 13.6 24.9)" fill="#fff"/>
+      </svg>
+      <h1>WHAT-SUP</h1>
+    </span>
     <span class="sub">지금 어디서, 언제, 어느 방향으로 패들보드 탈까</span>
     <span class="spacer"></span>
     <span class="updated" id="updated"></span>
