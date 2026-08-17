@@ -87,8 +87,9 @@
   .logo { width:40px; height:40px; display:block; flex-shrink:0; }
   .topbar h1 {
     font-family:var(--display);
-    font-size:24px; font-weight:900; letter-spacing:-0.035em; line-height:1;
-    color:var(--key);
+    /* 로고(40px)와 시각 높이를 맞춘 크기 — 로고를 키우면 같이 조정 */
+    font-size:34px; font-weight:900; letter-spacing:-0.045em; line-height:1;
+    color:var(--key); transform:scaleX(0.92); transform-origin:left center;
   }
   .topbar .sub { color:var(--ink-2); font-size:13px; }
   .topbar .spacer { flex:1; }
