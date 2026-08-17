@@ -212,47 +212,43 @@
   .shape { display:block; }
   .spot-card .shape { width:100%; height:66px; margin-top:12px; border-radius:var(--r-sm); }
 
-  /* ── 상세 상단 바 + 스팟 드롭다운 ──────────────────── */
-  .detail-bar {
+  /* ── 스팟 가로 전환 바 (점수순) ────────────────────── */
+  .spot-switch {
     position:sticky; top:var(--topbar-h); z-index:30;
     background:var(--page);
     background:color-mix(in srgb, var(--page) 88%, transparent);
     backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
-    display:flex; gap:10px; align-items:center; flex-wrap:wrap;
-    padding:12px 0 12px; margin-bottom:6px;
+    display:flex; gap:7px; overflow-x:auto; overscroll-behavior-x:contain;
+    padding:12px 0; margin-bottom:10px; scrollbar-width:none;
   }
-  .picker { position:relative; }
-  .pk-btn {
-    display:inline-flex; align-items:center; gap:9px; cursor:pointer;
-    border:1px solid var(--border); background:var(--surface-1); color:var(--ink-1);
-    border-radius:999px; padding:9px 16px; font-size:14.5px; font-weight:700;
-    letter-spacing:-0.01em; box-shadow:var(--sh-1);
-    transition:border-color .15s ease, transform .15s ease;
+  .spot-switch::after { content:""; flex:0 0 4px; }
+  .spot-switch button {
+    flex:0 0 auto; display:inline-flex; align-items:center; gap:7px; cursor:pointer;
+    border:1px solid var(--border); background:var(--surface-1); color:var(--ink-2);
+    border-radius:999px; padding:7px 14px; font-size:13px; white-space:nowrap;
+    transition:border-color .15s ease, color .15s ease;
   }
-  .pk-btn:hover { border-color:var(--key); transform:translateY(-1px); }
-  .pk-btn .dot { width:9px; height:9px; border-radius:50%; flex:0 0 auto; }
-  .pk-btn .sc { font-variant-numeric:tabular-nums; color:var(--ink-2); font-weight:700; }
-  .pk-btn .caret { color:var(--ink-3); font-size:10px; margin-left:2px; }
-  .picker.open .pk-btn { border-color:var(--key); }
-  .pk-panel {
-    position:absolute; top:calc(100% + 8px); left:0; z-index:70; display:none;
-    width:330px; max-width:calc(100vw - 40px); max-height:min(62vh,470px); overflow-y:auto;
-    background:var(--surface-1); border:1px solid var(--border);
-    border-radius:var(--r-md); box-shadow:var(--sh-2); padding:6px;
+  .spot-switch button:hover { color:var(--ink-1); border-color:var(--ink-3); }
+  .spot-switch button .dot { width:8px; height:8px; border-radius:50%; flex:0 0 auto; }
+  .spot-switch button .sc { font-weight:700; font-variant-numeric:tabular-nums; }
+  .spot-switch button[aria-current="true"] {
+    border-color:var(--key); box-shadow:inset 0 0 0 1px var(--key); color:var(--ink-1); font-weight:600;
   }
-  .picker.open .pk-panel { display:block; }
-  .pk-item {
-    display:flex; align-items:center; gap:10px; width:100%; text-align:left; cursor:pointer;
-    border:0; background:transparent; color:var(--ink-1);
-    padding:7px 9px; border-radius:var(--r-sm); font-size:13.5px;
-  }
-  .pk-item:hover, .pk-item:focus-visible { background:var(--surface-2); outline:none; }
-  .pk-item[aria-current="true"] { background:var(--surface-2); font-weight:700; }
-  .pk-item .dot { width:8px; height:8px; border-radius:50%; flex:0 0 auto; }
-  .pk-item .shape { width:40px; height:26px; border-radius:5px; flex:0 0 auto; }
-  .pk-item .nm { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-  .pk-item .sc { margin-left:auto; font-weight:700; font-variant-numeric:tabular-nums; }
 
+  /* ── 3열 요약 (적합도·바람·파고) ───────────────────── */
+  .statrow { padding:0; overflow:hidden; display:grid; grid-template-columns:repeat(3,1fr); margin-bottom:14px; }
+  .statrow .cell { padding:15px 18px; min-width:0; }
+  .statrow .cell + .cell { border-left:1px solid var(--grid); }
+  .statrow .v {
+    font-size:clamp(21px,2.8vw,29px); font-weight:700; letter-spacing:-0.035em;
+    display:flex; align-items:baseline; gap:6px; font-variant-numeric:tabular-nums;
+  }
+  .statrow .v small { font-size:.52em; color:var(--ink-3); font-weight:600; }
+  .statrow .v .dot { width:10px; height:10px; border-radius:50%; align-self:center; flex:0 0 auto; }
+  .statrow .k { font-size:12px; color:var(--ink-3); margin-top:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+  /* ── 로컬 지도 (바람·조류·항로) ────────────────────── */
+  .localmap svg { width:100%; max-width:720px; height:auto; display:block; margin:0 auto; }
   /* ── 상세 ──────────────────────────────────────────── */
   .detail-head { display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:12px; }
   .detail-head h2 { font-size:clamp(20px,2.4vw,25px); font-weight:700; letter-spacing:-0.025em; }
@@ -378,13 +374,10 @@
 
     <section class="block" id="detailSec">
       <div class="sec-head"><span class="num">02</span><h2>상세</h2></div>
-      <div class="detail-bar">
-        <div class="picker" id="spotPicker">
-          <button class="pk-btn" id="pkBtn" aria-haspopup="listbox" aria-expanded="false"></button>
-          <div class="pk-panel" id="pkPanel" role="listbox" aria-label="스팟 고르기"></div>
-        </div>
-      </div>
+      <div class="spot-switch" id="spotSwitch" aria-label="스팟 바꾸기"></div>
       <div class="detail-head" id="detailHead"></div>
+      <div class="card statrow" id="statRow"></div>
+      <div class="card chart-card localmap" id="localMap"></div>
       <div class="route-box" id="routeBox"></div>
       <div id="charts"></div>
       <div style="margin:6px 0 0"><button class="chip-btn" id="tblBtn" aria-expanded="false">표로 보기</button></div>
@@ -698,7 +691,7 @@ function rankedSpots(){
 }
 
 function render(){
-  renderHero(); renderMap(); renderCards(); renderPicker(); renderDetail(); renderRuns();
+  renderHero(); renderMap(); renderCards(); renderSwitch(); renderDetail(); renderRuns();
   $("#spotCount").textContent=SPOTS.length+"곳";
   $("#updated").textContent="업데이트 "+new Date().toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit"});
   syncTopbar();
@@ -808,39 +801,29 @@ function renderCards(){
   });
 }
 
-/* 상세 위에 붙어 다니는 스팟 드롭다운 — 목록까지 스크롤을 올리지 않고 갈아탈 수 있게. */
-function renderPicker(){
-  const cur=SPOTS.find(s=>s.id===selSpot), cr=repState(cur), cg=grade(cr.score);
-  const btn=$("#pkBtn");
-  btn.innerHTML=`<span class="dot" style="background:${cg.col}"></span><span class="nm"></span>
-    <span class="sc">${cr.score==null?"–":cr.score}</span><span class="caret">▼</span>`;
-  btn.querySelector(".nm").textContent=cur.name;
-
-  const panel=$("#pkPanel");
-  panel.innerHTML="";
+/* 상세 위에 붙어 다니는 가로 스팟 바 — 점수순. 목록까지 스크롤을 올리지 않고 갈아탄다. */
+function renderSwitch(){
+  const bar=$("#spotSwitch"), keep=bar.scrollLeft;
+  bar.innerHTML="";
+  let active=null;
   rankedSpots().forEach(({sp,r})=>{
     const g=grade(r.score);
     const b=document.createElement("button");
-    b.type="button"; b.className="pk-item"; b.setAttribute("role","option");
     b.setAttribute("aria-current",String(sp.id===selSpot));
-    b.innerHTML=`${shapeSvg(sp,"shape")}<span class="dot" style="background:${g.col}"></span>
-      <span class="nm"></span><span class="sc">${r.score==null?"–":r.score}</span>`;
+    b.innerHTML=`<span class="dot" style="background:${g.col}"></span><span class="nm"></span><span class="sc">${r.score==null?"–":r.score}</span>`;
     b.querySelector(".nm").textContent=sp.name;
-    b.addEventListener("click",()=>{ selSpot=sp.id; closePicker(); render(); });
-    panel.appendChild(b);
+    b.addEventListener("click",()=>{ selSpot=sp.id; render(); });
+    if(sp.id===selSpot) active=b;
+    bar.appendChild(b);
   });
+  bar.scrollLeft=keep;
+  // 선택 칩이 바 밖이면 끌어온다 (페이지 스크롤은 건드리지 않는다)
+  if(active){
+    const l=active.offsetLeft, rr=l+active.offsetWidth;
+    if(l<bar.scrollLeft || rr>bar.scrollLeft+bar.clientWidth)
+      bar.scrollLeft = l - bar.clientWidth/2 + active.offsetWidth/2;
+  }
 }
-function closePicker(){
-  $("#spotPicker").classList.remove("open");
-  $("#pkBtn").setAttribute("aria-expanded","false");
-}
-$("#pkBtn").addEventListener("click",e=>{
-  e.stopPropagation();
-  const open=$("#spotPicker").classList.toggle("open");
-  $("#pkBtn").setAttribute("aria-expanded",String(open));
-});
-document.addEventListener("click",e=>{ if(!e.target.closest("#spotPicker")) closePicker(); });
-document.addEventListener("keydown",e=>{ if(e.key==="Escape") closePicker(); });
 
 /* 상단 고정 바에 가리지 않게 그만큼 덜 내려간다. */
 function scrollToDetail(){
@@ -850,14 +833,114 @@ function scrollToDetail(){
 }
 
 /* ---------------- 상세 ---------------- */
+/* 조위 흐름: 다음 1~2시간 조위 변화로 밀물/썰물을 판정 */
+function tideTrend(hrs,i){
+  const a=hrs[i]?.sl, b=hrs[i+1]?.sl ?? hrs[i+2]?.sl;
+  if(a==null||b==null) return null;
+  const d=b-a;
+  if(Math.abs(d)<0.03) return {t:"정조",ic:"·"};
+  return d>0 ? {t:"밀물",ic:"▲"} : {t:"썰물",ic:"▼"};
+}
+
+/* 스팟 주변 지도 — 실제 해안 도형 위에 바람 화살표·조류·권장 항로를 그린다.
+   SHAPES는 facing이 화면 위로 오게 회전돼 있으므로, 방위 b는 (b - facing)만큼 돌려 그린다. */
+function renderLocalMap(sp,h,hrs,idx){
+  const el=$("#localMap");
+  const S=SHAPES[sp.id];
+  const rot=b=>{ const a=(b-sp.facing+360)%360*Math.PI/180; return [Math.sin(a),-Math.cos(a)]; };
+  const CX=100, CY=50;
+  let g="";
+  g+=`<rect width="200" height="100" rx="6" fill="var(--shape-sea)"/>`;
+  if(S) S.land.forEach(d=>{ g+=`<g transform="translate(0,13.5)"><path d="${d}" fill="var(--shape-land)" stroke="var(--ink-3)" stroke-width="0.9"/></g>`; });
+
+  // 좌·우 랜드마크 라벨 (회전된 방위에 따라 화면 가장자리에)
+  [sp.left,sp.right].forEach(lm=>{
+    const [vx,vy]=rot(lm.dir);
+    const x=Math.max(8,Math.min(192,CX+vx*88)), y=Math.max(20,Math.min(88,CY+vy*30));
+    g+=`<text x="${x}" y="${y}" text-anchor="${vx<0?"start":"end"}" font-size="5" font-weight="600"
+      fill="var(--ink-2)" paint-order="stroke" stroke="var(--shape-sea)" stroke-width="1.6">${lm.name}</text>`;
+  });
+
+  // 스팟 위치
+  g+=`<circle cx="${CX}" cy="${CY}" r="3.4" fill="var(--key)" stroke="var(--surface-1)" stroke-width="1.3"/>`;
+
+  // 바람 화살표 (불어가는 방향) + 코너 라벨
+  if(h.ws!=null&&h.ws>=0.5){
+    const [vx,vy]=rot((h.wd+180)%360);
+    const L=10+Math.min(h.ws,12)*2;
+    g+=`<line x1="${CX+vx*8}" y1="${CY+vy*8}" x2="${CX+vx*(8+L)}" y2="${CY+vy*(8+L)}"
+      stroke="var(--ink-1)" stroke-width="1.7" stroke-linecap="round" marker-end="url(#lmWind)"/>`;
+  }
+  g+=`<text x="5" y="10" font-size="5.5" font-weight="700" fill="var(--ink-1)"
+    paint-order="stroke" stroke="var(--shape-sea)" stroke-width="1.6">바람 ${h.ws==null?"정보 없음":dirKo(h.wd)+" "+fmt(h.ws)+"m/s"}</text>`;
+
+  // 조류(조위 흐름) 코너 라벨
+  const tt=tideTrend(hrs,idx);
+  if(tt) g+=`<text x="195" y="10" text-anchor="end" font-size="5.5" font-weight="700" fill="var(--ink-1)"
+    paint-order="stroke" stroke="var(--shape-sea)" stroke-width="1.6">${tt.ic} ${tt.t}</text>`;
+
+  // 권장 항로
+  const adv=routeAdvice(sp,h.wd,h.ws);
+  if(adv.danger){
+    g+=`<text x="5" y="96" font-size="5.5" font-weight="700" fill="var(--critical)"
+      paint-order="stroke" stroke="var(--shape-sea)" stroke-width="1.6">⚠ 이안풍 — 항로 추천 없음</text>`;
+  } else if(h.ws!=null && h.ws<2.5){
+    g+=`<line x1="62" y1="40" x2="138" y2="40" stroke="var(--key)" stroke-width="1.6"
+      stroke-linecap="round" marker-start="url(#lmKeyR)" marker-end="url(#lmKey)"/>
+      <text x="100" y="34.5" text-anchor="middle" font-size="5" font-weight="700" fill="var(--key)"
+      paint-order="stroke" stroke="var(--shape-sea)" stroke-width="1.6">자유 왕복</text>`;
+  } else if(h.ws!=null){
+    const target = angDiff(h.wd,sp.left.dir) <= angDiff(h.wd,sp.right.dir) ? sp.left : sp.right;
+    const [vx,vy]=rot(target.dir);
+    const y0=42;
+    // 화살표가 캔버스를 벗어나지 않게 길이를 줄인다 (위 12, 아래 92 한계)
+    let t=46;
+    if(vy<0) t=Math.min(t,(y0-12)/(-vy));
+    if(vy>0) t=Math.min(t,(92-y0)/vy);
+    const mid=t*0.6;
+    g+=`<line x1="${CX+vx*10}" y1="${y0+vy*10}" x2="${CX+vx*t}" y2="${y0+vy*t}"
+      stroke="var(--key)" stroke-width="1.6" stroke-linecap="round" marker-end="url(#lmKey)"/>
+      <line x1="${CX+vx*t}" y1="${y0+vy*t-7}" x2="${CX+vx*10}" y2="${y0+vy*10-7}"
+      stroke="var(--key)" stroke-width="1.3" stroke-dasharray="3 2.4" stroke-linecap="round" marker-end="url(#lmKey)"/>
+      <text x="${CX+vx*mid}" y="${Math.max(18,y0+vy*mid+8.5)}" text-anchor="middle" font-size="4.6" font-weight="700" fill="var(--key)"
+      paint-order="stroke" stroke="var(--shape-sea)" stroke-width="1.5">① 맞바람으로</text>
+      <text x="${CX+vx*mid}" y="${Math.max(12,y0+vy*mid-11)}" text-anchor="middle" font-size="4.6" font-weight="700" fill="var(--key)"
+      paint-order="stroke" stroke="var(--shape-sea)" stroke-width="1.5">② 바람 등지고 복귀</text>`;
+  }
+  if(sp.shelter) g+=`<text x="195" y="96" text-anchor="end" font-size="4.6" font-weight="600" fill="var(--ink-2)"
+    paint-order="stroke" stroke="var(--shape-sea)" stroke-width="1.5">방파제 안쪽 — 실제 파도는 더 잔잔</text>`;
+
+  el.innerHTML=`<h3>스팟 지도 — 바람·조류·항로${dayMode==="now"?"":` (${dayLabel(dayMode)} 최고 시점 기준)`}</h3>
+    <svg viewBox="0 0 200 100" role="img" aria-label="${sp.name} 주변 지도">
+    <defs>
+      <marker id="lmWind" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="4.6" markerHeight="4.6" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="var(--ink-1)"/></marker>
+      <marker id="lmKey" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="4.6" markerHeight="4.6" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="var(--key)"/></marker>
+      <marker id="lmKeyR" viewBox="0 0 8 8" refX="2" refY="4" markerWidth="4.6" markerHeight="4.6" orient="auto"><path d="M8,0 L0,4 L8,8 Z" fill="var(--key)"/></marker>
+    </defs>${g}</svg>`;
+}
+
 function renderDetail(){
   const sp=SPOTS.find(s=>s.id===selSpot);
   const hrs=DATA.spots[sp.id].hours;
   const i0=nowIdx(), N=Math.min(48,hrs.length-i0);
   const seg=hrs.slice(i0,i0+N), times=DATA.time.slice(i0,i0+N);
-  const h=hrs[i0];
+  const rep=repState(sp);
+  const h=rep.h||hrs[i0];          // 대표 시점: 지금 모드=현재, 날짜 모드=그날 최고 시각
+  const ri=rep.idx??i0;
 
   $("#detailHead").innerHTML=`<h2>${sp.name} 상세</h2><span class="meta">${sp.desc} · 난이도 ${sp.lv} · 조석: ${sp.tide}</span>`;
+
+  // 3열 요약: 적합도 · 바람 · 파고
+  const gg=grade(h.score);
+  $("#statRow").innerHTML=`
+    <div class="cell"><div class="v"><span class="dot" style="background:${gg.col}"></span>${h.score==null?"–":h.score}<small>점</small></div>
+      <div class="k">적합도 · ${gg.label}</div></div>
+    <div class="cell"><div class="v">${fmt(h.ws)}<small>m/s</small></div>
+      <div class="k">바람 · ${h.ws==null?"–":dirKo(h.wd)}${h.gs!=null?` · 돌풍 ${fmt(h.gs)}`:""}</div></div>
+    <div class="cell"><div class="v">${fmt(h.whEff)}<small>m</small></div>
+      <div class="k">파고${sp.shelter?" · 방파제 안":""}${h.wp!=null?` · 주기 ${fmt(h.wp,0)}s`:""}</div></div>`;
+
+  renderLocalMap(sp,h,hrs,ri);
 
   const adv=routeAdvice(sp,h.wd,h.ws);
   $("#routeBox").className="route-box"+(adv.danger?" danger":"");
