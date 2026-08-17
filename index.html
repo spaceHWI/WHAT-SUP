@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WHAT-SUP — 패들보드 스팟·타이밍·항로 추천</title>
 <!-- 파비콘: 위 헤더 로고와 같은 그림 (파비콘은 CSS 변수를 못 읽어 색을 직접 적음) -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cdefs%3E%3CclipPath id='lgClip'%3E%3Ccircle cx='24' cy='24' r='20.3'/%3E%3C/clipPath%3E%3C/defs%3E%3Cg fill='none' stroke='%23e2553a' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg clip-path='url(%23lgClip)' stroke-width='1.6'%3E%3Ccircle cx='34.8' cy='10.4' r='2.8'/%3E%3Ccircle cx='20' cy='13.6' r='8'/%3E%3Cpath d='M12.4 11.9 A8 8 0 0 1 27.6 11.9 q-3 -1.9 -7.6 -1.2 -4.6 0.7 -7.6 1.2 z'/%3E%3Cellipse cx='16.9' cy='15.2' rx='2.5' ry='2.9'/%3E%3Cellipse cx='23.1' cy='15.2' rx='2.5' ry='2.9'/%3E%3Cpath d='M18.1 20.3 q1.9 1.5 3.8 0'/%3E%3Cpath d='M17.4 21.5 L14.9 22.9 L15.2 30 q4.9 1.2 9.8 0 L25.1 22.9 L22.6 21.5'/%3E%3Cpath d='M15 24.2 L11.8 28.8'/%3E%3Cpath d='M25 23.9 L32 21.4'/%3E%3Cpath d='M3 30.9 C 12 28.6, 36 28.6, 45 30.9 C 36 33.4, 12 33.4, 3 30.9 Z'/%3E%3Cpath d='M33.4 18.4 L28.8 34.2'/%3E%3Cpath d='M28.8 34.2 L30.5 36.2 L28.8 38.3 L27.1 36.2 Z'/%3E%3Cpath d='M2 37.2 q4 -3.7 8 0 t8 0 t8 0 t8 0 t8 0'/%3E%3Cpath d='M0 41.2 q4 -3.5 8 0 t8 0 t8 0 t8 0 t8 0 t8 0'/%3E%3Cpath d='M2 45 q4 -3.2 8 0 t8 0 t8 0 t8 0 t8 0'/%3E%3C/g%3E%3Ccircle cx='24' cy='24' r='21.4' stroke-width='2.1'/%3E%3Ccircle cx='17.5' cy='15.4' r='0.95' fill='%23e2553a' stroke='none'/%3E%3Ccircle cx='22.5' cy='15.4' r='0.95' fill='%23e2553a' stroke='none'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cdefs%3E%3CclipPath id='lgClip'%3E%3Ccircle cx='24' cy='24' r='20.3'/%3E%3C/clipPath%3E%3C/defs%3E%3Cg fill='none' stroke='%23e2553a' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg clip-path='url(%23lgClip)' stroke-width='1.7'%3E%3Cpath d='M10 45 L10 4.5'/%3E%3Cpath d='M10 6.5 C 20 3, 30 10, 43.5 6 L41.5 25.5 C 31.5 29, 20 22.5, 10 26.5 Z'/%3E%3Ccircle cx='25.5' cy='13.4' r='4.6'/%3E%3Cpath d='M22.9 19.7 q2.6 1.6 5.2 0'/%3E%3Cpath d='M19.4 23.6 L31.8 16.9'/%3E%3Cpath d='M19.1 17.5 L32.2 23.2'/%3E%3Cellipse cx='18.4' cy='18' rx='1.1' ry='1.9' transform='rotate(-65 18.4 18)'/%3E%3Cellipse cx='33 ' cy='22.7' rx='1.1' ry='1.9' transform='rotate(-115 33 22.7)'/%3E%3Cellipse cx='18.6' cy='24.1' rx='1.1' ry='1.9' transform='rotate(-115 18.6 24.1)'/%3E%3Cellipse cx='32.6' cy='16.4' rx='1.1' ry='1.9' transform='rotate(-65 32.6 16.4)'/%3E%3Cpath d='M2 37.5 q4.4 -3.8 8.8 0 t8.8 0 t8.8 0 t8.8 0 t8.8 0'/%3E%3Cpath d='M0 42 q4.4 -3.6 8.8 0 t8.8 0 t8.8 0 t8.8 0 t8.8 0 t8.8 0'/%3E%3C/g%3E%3Ccircle cx='24' cy='24' r='21.4' stroke-width='2.1'/%3E%3Ccircle cx='23.7' cy='12.9' r='1.1' fill='%23e2553a' stroke='none'/%3E%3Ccircle cx='27.3' cy='12.9' r='1.1' fill='%23e2553a' stroke='none'/%3E%3C/g%3E%3C/svg%3E">
 <style>
   /* ── 토큰 ────────────────────────────────────────────────
      데이터 색(상태·시리즈·차트 크롬)은 검증된 팔레트라 값을 바꾸지 않는다.
@@ -20,7 +20,7 @@
     --key-soft:rgba(226,85,58,0.10);
     --good:#0ca30c; --warn:#fab219; --serious:#ec835a; --critical:#d03b3b;
     --good-text:#006300;
-    --sea:#e7edf1; --land:#f1efe8;
+    --sea:#dfe9f2; --land:#f0eee3;
 
     --wash:#f4f0ed; --surface-2:#f2f1ec;
     --shape-sea:#dee6ea; --shape-land:#ebe9e1;
@@ -37,7 +37,7 @@
     --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,0.10);
     --key:#e2553a; --key-soft:rgba(226,85,58,0.16);
     --good-text:#0ca30c;
-    --sea:#171b20; --land:#232420;
+    --sea:#101f2e; --land:#31332a;
     --wash:#161412; --surface-2:#242422;
     --shape-sea:#182430; --shape-land:#333529;
     --sh-1:0 1px 2px rgba(0,0,0,.5), 0 10px 26px -14px rgba(0,0,0,.8);
@@ -51,7 +51,7 @@
       --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,0.10);
       --key:#e2553a; --key-soft:rgba(226,85,58,0.16);
       --good-text:#0ca30c;
-      --sea:#171b20; --land:#232420;
+      --sea:#101f2e; --land:#31332a;
       --wash:#161412; --surface-2:#242422;
       --shape-sea:#182430; --shape-land:#333529;
     --shape-sea:#16293a; --shape-land:#282c23;
@@ -172,7 +172,7 @@
   .spot-dot { cursor:pointer; }
   .spot-dot circle.core { stroke:var(--surface-1); stroke-width:2; transition:r .15s ease; }
   .spot-dot:hover circle.core { r:11; }
-  .spot-dot text { font-size:13px; fill:var(--ink-1); font-weight:600; paint-order:stroke; stroke:var(--surface-1); stroke-width:3; }
+  .spot-dot text { font-size:13.5px; fill:var(--ink-1); font-weight:600; paint-order:stroke; stroke:var(--surface-1); stroke-width:3.5; }
   .spot-dot.sel circle.core { stroke:var(--key); stroke-width:3; }
 
   /* ── 섹션 헤더 ─────────────────────────────────────── */
@@ -325,26 +325,23 @@
       <svg class="logo" viewBox="0 0 48 48" role="img" aria-label="WHAT-SUP 로고">
         <defs><clipPath id="lgClip"><circle cx="24" cy="24" r="20.3"/></clipPath></defs>
         <g fill="none" stroke="var(--key)" stroke-linecap="round" stroke-linejoin="round">
-          <g clip-path="url(#lgClip)" stroke-width="1.6">
-            <circle cx="34.8" cy="10.4" r="2.8"/>
-            <circle cx="20" cy="13.6" r="8"/>
-            <path d="M12.4 11.9 A8 8 0 0 1 27.6 11.9 q-3 -1.9 -7.6 -1.2 -4.6 0.7 -7.6 1.2 z"/>
-            <ellipse cx="16.9" cy="15.2" rx="2.5" ry="2.9"/>
-            <ellipse cx="23.1" cy="15.2" rx="2.5" ry="2.9"/>
-            <path d="M18.1 20.3 q1.9 1.5 3.8 0"/>
-            <path d="M17.4 21.5 L14.9 22.9 L15.2 30 q4.9 1.2 9.8 0 L25.1 22.9 L22.6 21.5"/>
-            <path d="M15 24.2 L11.8 28.8"/>
-            <path d="M25 23.9 L32 21.4"/>
-            <path d="M3 30.9 C 12 28.6, 36 28.6, 45 30.9 C 36 33.4, 12 33.4, 3 30.9 Z"/>
-            <path d="M33.4 18.4 L28.8 34.2"/>
-            <path d="M28.8 34.2 L30.5 36.2 L28.8 38.3 L27.1 36.2 Z"/>
-            <path d="M2 37.2 q4 -3.7 8 0 t8 0 t8 0 t8 0 t8 0"/>
-            <path d="M0 41.2 q4 -3.5 8 0 t8 0 t8 0 t8 0 t8 0 t8 0"/>
-            <path d="M2 45 q4 -3.2 8 0 t8 0 t8 0 t8 0 t8 0"/>
+          <g clip-path="url(#lgClip)" stroke-width="1.7">
+            <path d="M10 45 L10 4.5"/>
+            <path d="M10 6.5 C 20 3, 30 10, 43.5 6 L41.5 25.5 C 31.5 29, 20 22.5, 10 26.5 Z"/>
+            <circle cx="25.5" cy="13.4" r="4.6"/>
+            <path d="M22.9 19.7 q2.6 1.6 5.2 0"/>
+            <path d="M19.4 23.6 L31.8 16.9"/>
+            <path d="M19.1 17.5 L32.2 23.2"/>
+            <ellipse cx="18.4" cy="18" rx="1.1" ry="1.9" transform="rotate(-65 18.4 18)"/>
+            <ellipse cx="33 " cy="22.7" rx="1.1" ry="1.9" transform="rotate(-115 33 22.7)"/>
+            <ellipse cx="18.6" cy="24.1" rx="1.1" ry="1.9" transform="rotate(-115 18.6 24.1)"/>
+            <ellipse cx="32.6" cy="16.4" rx="1.1" ry="1.9" transform="rotate(-65 32.6 16.4)"/>
+            <path d="M2 37.5 q4.4 -3.8 8.8 0 t8.8 0 t8.8 0 t8.8 0 t8.8 0"/>
+            <path d="M0 42 q4.4 -3.6 8.8 0 t8.8 0 t8.8 0 t8.8 0 t8.8 0 t8.8 0"/>
           </g>
           <circle cx="24" cy="24" r="21.4" stroke-width="2.1"/>
-          <circle cx="17.5" cy="15.4" r="0.95" fill="var(--key)" stroke="none"/>
-          <circle cx="22.5" cy="15.4" r="0.95" fill="var(--key)" stroke="none"/>
+          <circle cx="23.7" cy="12.9" r="1.1" fill="var(--key)" stroke="none"/>
+          <circle cx="27.3" cy="12.9" r="1.1" fill="var(--key)" stroke="none"/>
         </g>
       </svg>
       <h1>WHAT-SUP</h1>
@@ -353,7 +350,7 @@
     <span class="spacer"></span>
     <div class="seg" id="daySeg" role="group" aria-label="시점 선택"></div>
     <button class="chip-btn" id="refreshBtn">새로고침</button>
-    <button class="chip-btn" id="themeBtn" title="테마 전환">테마: 자동</button>
+    <button class="chip-btn" id="themeBtn" title="테마 전환">다크</button>
   </div>
 </div>
 
@@ -745,7 +742,7 @@ const JEJU_PATH = "M 72 258 C 60 268 62 280 85 300 C 100 312 108 316 120 318 C 1
 function renderMap(){
   const svg=$("#jejuMap");
   let s=`<rect x="0" y="0" width="840" height="470" fill="var(--sea)" rx="12"/>`;
-  s+=`<path d="${JEJU_PATH}" fill="var(--land)" stroke="var(--axis)" stroke-width="1.5"/>`;
+  s+=`<path d="${JEJU_PATH}" fill="var(--land)" stroke="var(--ink-3)" stroke-width="1.8"/>`;
   s+=`<text x="420" y="225" text-anchor="middle" font-size="13" fill="var(--ink-3)">한라산 ▲</text>`;
   SPOTS.forEach(sp=>{
     const r=repState(sp), g=grade(r.score);
@@ -1150,12 +1147,12 @@ function renderSeg(){
   $("#segHint").textContent = dayMode==="now" ? "현재 시각 기준 실황 예보" : "낮 시간(06~19시) 기준 최고 상태와 추천 시간대";
 }
 
-let theme="auto";
+let theme="dark";   // 다크가 기본. "자동"을 고르면 OS 설정을 따른다
 $("#themeBtn").addEventListener("click",()=>{
   theme = theme==="auto"?"light":theme==="light"?"dark":"auto";
   if(theme==="auto") document.documentElement.removeAttribute("data-theme");
   else document.documentElement.setAttribute("data-theme",theme);
-  $("#themeBtn").textContent="테마: "+(theme==="auto"?"자동":theme==="light"?"라이트":"다크");
+  $("#themeBtn").textContent=theme==="auto"?"자동":theme==="light"?"라이트":"다크";
 });
 
 $("#tblBtn").addEventListener("click",()=>{
