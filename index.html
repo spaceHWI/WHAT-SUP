@@ -4,6 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WHAT-SUP — 패들보드 스팟·타이밍·항로 추천</title>
+<meta name="description" content="제주 SUP 스팟 16곳의 지금·오늘·내일·모레 적합도를 점수로. 바람·파고·조위 기반 항로 추천.">
+<!-- 링크 공유 썸네일 (카카오톡·슬랙 등). og.png는 로고를 바꾸면 다시 생성할 것 -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="WHAT-SUP">
+<meta property="og:description" content="제주 SUP — 지금 어디서, 언제, 어느 방향으로 패들보드 탈까">
+<meta property="og:url" content="https://spacehwi.github.io/WHAT-SUP/">
+<meta property="og:image" content="https://spacehwi.github.io/WHAT-SUP/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<!-- PNG 파비콘·애플 터치 아이콘 (구글 검색·즐겨찾기·홈 화면용). 로고를 바꾸면 같이 재생성 -->
+<link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <!-- 파비콘: 위 헤더 로고와 같은 그림 (파비콘은 CSS 변수를 못 읽어 색을 직접 적음) -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cg fill='none' stroke='%23e2553a' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg stroke-width='2'%3E%3Ccircle cx='24' cy='18.6' r='8.6'/%3E%3Cpath d='M19.4 30.4 q4.6 2.6 9.2 0'/%3E%3Cpath d='M12.6 38.6 L35.4 25.4'/%3E%3Cpath d='M12.6 25.4 L35.4 38.6'/%3E%3Cellipse cx='11.2' cy='24.6' rx='1.7' ry='2.9' transform='rotate(-60 11.2 24.6)'/%3E%3Cellipse cx='36.8' cy='39.4' rx='1.7' ry='2.9' transform='rotate(-60 36.8 39.4)'/%3E%3Cellipse cx='11.2' cy='39.4' rx='1.7' ry='2.9' transform='rotate(-120 11.2 39.4)'/%3E%3Cellipse cx='36.8' cy='24.6' rx='1.7' ry='2.9' transform='rotate(-120 36.8 24.6)'/%3E%3C/g%3E%3Ccircle cx='24' cy='24' r='21.4' stroke-width='2.1'/%3E%3Ccircle cx='20.7' cy='18' r='1.9' fill='%23e2553a' stroke='none'/%3E%3Ccircle cx='27.3' cy='18' r='1.9' fill='%23e2553a' stroke='none'/%3E%3Cpath d='M24 21.6 l-1.5 2.6 h3 z' fill='%23e2553a' stroke='none'/%3E%3C/g%3E%3C/svg%3E">
 <style>
@@ -169,12 +184,24 @@
   /* ── 지도 ──────────────────────────────────────────── */
   .mapcard { padding:14px 16px 8px; }
   .mapcard h2 { font-size:11px; letter-spacing:.06em; color:var(--ink-3); font-weight:700; padding:2px 4px 8px; }
-  .jejumap { width:100%; height:auto; display:block; }
-  .spot-dot { cursor:pointer; }
-  .spot-dot circle.core { stroke:var(--surface-1); stroke-width:2; transition:r .15s ease; }
-  .spot-dot:hover circle.core { r:11; }
-  .spot-dot text { font-size:13.5px; fill:var(--ink-1); font-weight:600; paint-order:stroke; stroke:var(--surface-1); stroke-width:3.5; }
-  .spot-dot.sel circle.core { stroke:var(--key); stroke-width:3; }
+  .jejumap { width:100%; height:clamp(300px,42vw,440px); border-radius:12px; z-index:0; background:var(--shape-sea); }
+  .map-fallback { display:flex; align-items:center; justify-content:center; height:100%; color:var(--ink-3); font-size:13px; }
+  /* Leaflet 마커: 점수색 점 + 바람 화살표 + 이름 칩 (타일이 밝아 칩은 항상 라이트 톤) */
+  .mk { position:relative; }
+  .mk-dot {
+    position:absolute; width:15px; height:15px; margin:-7.5px 0 0 -7.5px; border-radius:50%;
+    border:2.5px solid #fff; box-shadow:0 1px 4px rgba(0,0,0,.45); cursor:pointer;
+  }
+  .mk.sel .mk-dot { border-color:#0b0b0b; width:17px; height:17px; margin:-8.5px 0 0 -8.5px; }
+  .mk-arrow { position:absolute; left:0; top:0; transform-origin:0 0; pointer-events:none; }
+  .mk-tip {
+    background:rgba(255,255,255,.94) !important; color:#111 !important; border:0 !important;
+    border-radius:999px !important; padding:1px 7px !important;
+    font-weight:600; font-size:10.5px; line-height:1.5; box-shadow:0 1px 5px rgba(0,0,0,.28) !important;
+  }
+  .mk-tip.sel { box-shadow:0 0 0 2px var(--key), 0 1px 5px rgba(0,0,0,.28) !important; }
+  .mk-tip::before { display:none !important; }
+  .mk-tip .tp-sc { color:#666; font-weight:700; margin-left:4px; font-variant-numeric:tabular-nums; }
 
   /* ── 섹션 헤더 ─────────────────────────────────────── */
   section.block { margin-top:40px; }
@@ -362,7 +389,7 @@
       <div class="card hero" id="heroCard"></div>
       <div class="card mapcard">
         <h2 id="mapTitle">스팟 현황 지도</h2>
-        <svg class="jejumap" id="jejuMap" viewBox="0 0 840 470" role="img" aria-label="제주도 스팟 지도"></svg>
+        <div class="jejumap" id="jejuMap" aria-label="제주도 스팟 지도"></div>
       </div>
     </div>
 
@@ -728,35 +755,42 @@ function renderHero(){
   el.style.cursor="pointer";
 }
 
-const JEJU_PATH = "M 72 258 C 60 268 62 280 85 300 C 100 312 108 316 120 318 C 140 326 160 334 185 340 C 210 350 240 358 273 362 C 320 370 380 370 430 365 C 490 358 550 345 600 330 C 645 315 685 300 706 277 C 740 240 780 160 800 95 C 792 75 770 62 742 60 C 712 50 682 42 652 40 C 610 40 568 45 527 52 C 455 62 383 78 313 96 C 262 110 212 125 163 143 C 140 158 118 180 100 200 C 96 205 96 207 94 212 C 90 219 88 225 86 232 C 82 240 76 250 72 258 Z";
-
+/* ---------------- 개요 지도 (Leaflet + Esri Ocean) ----------------
+   실측 지도 타일 위에 점수색 마커·바람 화살표·이름 칩을 얹는다.
+   타일은 밝은 톤 하나만 쓴다(다크 모드에서도 지도는 밝게 — 참고한 북적북적 제주 스타일). */
+let MAP=null, markerLayer=null;
+function ensureMap(){
+  if(MAP||!window.L) return;
+  MAP=L.map("jejuMap",{scrollWheelZoom:false,attributionControl:true});
+  L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}",
+    {attribution:"© Esri Ocean Basemap",maxZoom:13}).addTo(MAP);
+  markerLayer=L.layerGroup().addTo(MAP);
+  MAP.fitBounds([[33.17,126.08],[33.60,127.00]],{padding:[6,6]});
+}
 function renderMap(){
-  const svg=$("#jejuMap");
-  let s=`<rect x="0" y="0" width="840" height="470" fill="var(--sea)" rx="12"/>`;
-  s+=`<path d="${JEJU_PATH}" fill="var(--land)" stroke="var(--ink-3)" stroke-width="1.8"/>`;
-  s+=`<text x="420" y="225" text-anchor="middle" font-size="13" fill="var(--ink-3)">한라산 ▲</text>`;
+  const el=$("#jejuMap");
+  if(!window.L){ el.innerHTML='<div class="map-fallback">지도 타일을 불러오지 못했어요 — 네트워크 확인</div>'; return; }
+  ensureMap();
+  markerLayer.clearLayers();
   SPOTS.forEach(sp=>{
-    const r=repState(sp), g=grade(r.score);
-    const sel=sp.id===selSpot?" sel":"";
-    const anchor=sp.anchor||"start";
+    const r=repState(sp), g=grade(r.score), sel=sp.id===selSpot;
     // 바람 화살표 (불어가는 방향)
     let arrow="";
     if(r.h&&r.h.ws!=null&&r.h.ws>=1){
-      const to=(r.h.wd+180)%360, rad=(to-90)*Math.PI/180, L=13+Math.min(r.h.ws,12);
-      const x2=sp.mx+Math.cos(rad)*L, y2=sp.my+Math.sin(rad)*L;
-      arrow=`<line x1="${sp.mx}" y1="${sp.my}" x2="${x2}" y2="${y2}" stroke="var(--ink-3)" stroke-width="2" stroke-linecap="round" marker-end="url(#arr)"/>`;
+      const rot=(r.h.wd+180)%360, len=11+Math.min(r.h.ws,12);
+      arrow=`<svg class="mk-arrow" width="16" height="${len+6}" viewBox="0 0 16 ${len+6}"
+        style="transform:translate(-8px,0) rotate(${rot}deg)">
+        <line x1="8" y1="0" x2="8" y2="${len}" stroke="#1f2937" stroke-width="2" stroke-linecap="round"/>
+        <path d="M8 ${len+5} L4.6 ${len-1.5} L11.4 ${len-1.5} Z" fill="#1f2937"/>
+      </svg>`;
     }
-    s+=`<g class="spot-dot${sel}" data-spot="${sp.id}" tabindex="0" role="button" aria-label="${sp.name} ${g.label}">
-      ${arrow}
-      <circle class="core" cx="${sp.mx}" cy="${sp.my}" r="9" fill="${g.col}"/>
-      <text x="${sp.mx+(sp.lx||10)}" y="${sp.my+(sp.ly||4)}" text-anchor="${anchor}">${sp.name}</text>
-    </g>`;
-  });
-  svg.innerHTML=`<defs><marker id="arr" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="var(--ink-3)"/></marker></defs>`+s;
-  svg.querySelectorAll(".spot-dot").forEach(el=>{
-    const go=()=>{ selSpot=el.dataset.spot; render(); scrollToDetail(); };
-    el.addEventListener("click",go);
-    el.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();go();} });
+    const icon=L.divIcon({className:"", iconSize:[0,0],
+      html:`<div class="mk${sel?" sel":""}">${arrow}<span class="mk-dot" style="background:${g.col}"></span></div>`});
+    const m=L.marker([sp.lat,sp.lon],{icon}).addTo(markerLayer);
+    const left = sp.anchor==="end";
+    m.bindTooltip(`${sp.name}<span class="tp-sc">${r.score==null?"–":r.score}</span>`,
+      {permanent:true,direction:left?"left":"right",offset:[left?-9:9,0],className:"mk-tip"+(sel?" sel":"")});
+    m.on("click",()=>{ selSpot=sp.id; render(); scrollToDetail(); });
   });
   $("#mapTitle").textContent = dayMode==="now" ? "스팟 현황 지도 (현재 · 화살표=바람이 불어가는 방향)" : `스팟 현황 지도 (${dayLabel(dayMode)} 낮 시간대 최고 상태)`;
 }
@@ -845,10 +879,63 @@ function tideTrend(hrs,i){
 
 /* 스팟 주변 지도 — 실제 해안 도형(북쪽이 위) 위에 바람·조류·항로를 그린다.
    방위 b의 화면 벡터는 [sin b, -cos b] (북=위, 동=오른쪽). 회전 없음. */
+/* SHAPES land 경로를 폴리곤 배열로 (스팟별 1회 파싱 캐시) */
+const LAND_CACHE={};
+function landPolys(id){
+  if(LAND_CACHE[id]) return LAND_CACHE[id];
+  const S=SHAPES[id]; if(!S) return LAND_CACHE[id]=[];
+  return LAND_CACHE[id]=S.land.map(d=>
+    d.replace(/[MZ]/g,"").trim().split(/\s*L\s*/).map(t=>t.trim().split(/\s+/).map(Number)));
+}
+function inLand(id,x,y){
+  for(const poly of landPolys(id)){
+    let c=false;
+    for(let i=0;i<poly.length;i++){
+      const [x0,y0]=poly[i], [x1,y1]=poly[(i+1)%poly.length];
+      if((y0>y)!==(y1>y) && x<(x1-x0)*(y-y0)/(y1-y0+1e-12)+x0) c=!c;
+    }
+    if(c) return true;
+  }
+  return false;
+}
+
+const seaVec=b=>{ const a=b*Math.PI/180; return [Math.sin(a),-Math.cos(a)]; };
+function segOverSea(id,x1,y1,x2,y2){
+  for(let k=0;k<=6;k++){ const t=k/6;
+    if(inLand(id, x1+(x2-x1)*t, y1+(y2-y1)*t)) return false; }
+  return true;
+}
+/* 항로 화살표 자리 찾기: 목표 방위를 ±30°까지 틀고, 출발점을 바다 쪽으로 밀고,
+   길이를 줄여가며 왕복선 두 개가 모두 물 위인 배치를 찾는다. 실패 시 null. */
+function routePlacement(sp,dir){
+  const S=SHAPES[sp.id]; const [CX,CY]=(S&&S.c)||[100,55.5];
+  const [sx,sy]=seaVec(sp.facing);
+  const fitFrom=(bx,by,vx,vy,tmax)=>{ let t=tmax;
+    if(vx>0)t=Math.min(t,(190-bx)/vx); if(vx<0)t=Math.min(t,(bx-10)/(-vx));
+    if(vy>0)t=Math.min(t,(98-by)/vy);  if(vy<0)t=Math.min(t,(by-16)/(-vy));
+    return t; };
+  for(const rot of [0,10,-10,20,-20,30,-30,45,-45,60,-60]){
+    const [vx,vy]=seaVec((dir+rot+360)%360);
+    let px=-vy, py=vx; if(px*sx+py*sy<0){ px=-px; py=-py; }
+    for(const d of [4,10,16,22,28,34,40]){
+      const bx=CX+sx*d, by=CY+sy*d;
+      if(bx<10||bx>190||by<16||by>98) continue;
+      let t=fitFrom(bx,by,vx,vy,44);
+      while(t>=14){
+        if(segOverSea(sp.id,bx+vx*10,by+vy*10,bx+vx*t,by+vy*t) &&
+           segOverSea(sp.id,bx+vx*t+px*7,by+vy*t+py*7,bx+vx*10+px*7,by+vy*10+py*7)) 
+          return {bx,by,vx,vy,px,py,t};
+        t-=4;
+      }
+    }
+  }
+  return null;
+}
+
 function renderLocalMap(sp,h,hrs,idx){
   const el=$("#localMap");
   const S=SHAPES[sp.id];
-  const vec=b=>{ const a=b*Math.PI/180; return [Math.sin(a),-Math.cos(a)]; };
+  const vec=seaVec;
   const [CX,CY]=(S&&S.c)||[100,55.5];
   const halo='paint-order="stroke" stroke="var(--shape-sea)"';
   let g="";
@@ -899,23 +986,27 @@ function renderLocalMap(sp,h,hrs,idx){
     g+=`<text x="100" y="${dy}" text-anchor="middle" font-size="5.5" font-weight="700" fill="var(--critical)" ${halo} stroke-width="1.6">⚠ 이안풍 — 항로 추천 없음</text>`;
   } else if(h.ws!=null && h.ws<2.5){
     const [ux,uy]=vec((sp.facing+90)%360); // 해안과 나란한 방향
-    const ox=sx*9, oy=sy*9;                // 바다 쪽으로 살짝 띄움
-    const t=Math.min(fit(ux,uy,36),fit(-ux,-uy,36));
+    let ox=sx*9, oy=sy*9, t=Math.min(fit(ux,uy,36),fit(-ux,-uy,36));
+    for(const d of [9,15,21,27,33]){       // 바다 쪽으로 밀어가며 물 위 자리를 찾는다
+      ox=sx*d; oy=sy*d;
+      if(segOverSea(sp.id,CX-ux*t+ox,CY-uy*t+oy,CX+ux*t+ox,CY+uy*t+oy)) break;
+    }
     g+=`<line x1="${CX-ux*t+ox}" y1="${CY-uy*t+oy}" x2="${CX+ux*t+ox}" y2="${CY+uy*t+oy}"
       stroke="var(--key)" stroke-width="1.6" stroke-linecap="round" marker-start="url(#lmKeyR)" marker-end="url(#lmKey)"/>
       <text x="${CX+ox+sx*9}" y="${Math.max(14,Math.min(102,CY+oy+sy*9+1.5))}" text-anchor="middle" font-size="5" font-weight="700" fill="var(--key)" ${halo} stroke-width="1.6">자유 왕복</text>`;
   } else if(h.ws!=null){
     const target = angDiff(h.wd,sp.left.dir) <= angDiff(h.wd,sp.right.dir) ? sp.left : sp.right;
-    const [vx,vy]=vec(target.dir);
-    let px=-vy, py=vx;                     // 진행 방향의 수직 벡터
-    if(px*sx+py*sy<0){ px=-px; py=-py; }   // 바다 쪽으로 향하게
-    const t=fit(vx,vy,44), mid=t*0.6;
-    g+=`<line x1="${CX+vx*10}" y1="${CY+vy*10}" x2="${CX+vx*t}" y2="${CY+vy*t}"
-      stroke="var(--key)" stroke-width="1.6" stroke-linecap="round" marker-end="url(#lmKey)"/>
-      <line x1="${CX+vx*t+px*7}" y1="${CY+vy*t+py*7}" x2="${CX+vx*10+px*7}" y2="${CY+vy*10+py*7}"
-      stroke="var(--key)" stroke-width="1.3" stroke-dasharray="3 2.4" stroke-linecap="round" marker-end="url(#lmKey)"/>
-      <text x="${Math.max(14,Math.min(186,CX+vx*mid-px*7))}" y="${Math.max(14,Math.min(102,CY+vy*mid-py*7+1.5))}" text-anchor="middle" font-size="4.6" font-weight="700" fill="var(--key)" ${halo} stroke-width="1.5">① 맞바람으로</text>
-      <text x="${Math.max(14,Math.min(186,CX+vx*mid+px*15))}" y="${Math.max(14,Math.min(102,CY+vy*mid+py*15+1.5))}" text-anchor="middle" font-size="4.6" font-weight="700" fill="var(--key)" ${halo} stroke-width="1.5">② 바람 등지고 복귀</text>`;
+    let pl=routePlacement(sp,target.dir);
+    if(!pl) pl=routePlacement(sp,sp.facing);   // 마지막 수단: 바다 정면으로
+    if(pl){
+      const {bx,by,vx,vy,px,py,t}=pl, mid=t*0.6;
+      g+=`<line x1="${bx+vx*10}" y1="${by+vy*10}" x2="${bx+vx*t}" y2="${by+vy*t}"
+        stroke="var(--key)" stroke-width="1.6" stroke-linecap="round" marker-end="url(#lmKey)"/>
+        <line x1="${bx+vx*t+px*7}" y1="${by+vy*t+py*7}" x2="${bx+vx*10+px*7}" y2="${by+vy*10+py*7}"
+        stroke="var(--key)" stroke-width="1.3" stroke-dasharray="3 2.4" stroke-linecap="round" marker-end="url(#lmKey)"/>
+        <text x="${Math.max(14,Math.min(186,bx+vx*mid-px*7))}" y="${Math.max(14,Math.min(102,by+vy*mid-py*7+1.5))}" text-anchor="middle" font-size="4.6" font-weight="700" fill="var(--key)" ${halo} stroke-width="1.5">① 맞바람으로</text>
+        <text x="${Math.max(14,Math.min(186,bx+vx*mid+px*15))}" y="${Math.max(14,Math.min(102,by+vy*mid+py*15+1.5))}" text-anchor="middle" font-size="4.6" font-weight="700" fill="var(--key)" ${halo} stroke-width="1.5">② 바람 등지고 복귀</text>`;
+    }
   }
   if(sp.shelter) g+=`<text x="5" y="107" font-size="4.6" font-weight="600" fill="var(--ink-2)" ${halo} stroke-width="1.5">방파제 안쪽 — 실제 파도는 더 잔잔</text>`;
 
